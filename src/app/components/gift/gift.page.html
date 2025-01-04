@@ -1,0 +1,95 @@
+<ion-content [fullscreen]="true">
+
+    <ion-fab vertical="top" horizontal="start" slot="fixed">
+        <ion-fab-button 
+        style="margin-top: 3em;"
+         color="dark"
+         size="small"
+         (click)="goBack()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+<div style="padding: 1em;margin-top: 4em;" 
+*ngIf="step == 1">
+
+    <h2 style="text-align: center;margin-top:3em;">Tarjeta de regalo</h2>
+    
+        <h1 style="text-align: center;">175</h1>
+    
+    
+        <ion-row style="text-align: center;margin-top:3em">
+            <ion-col size="4">
+                <p>1</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>2</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>3</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>4</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>5</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>6</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>7</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>8</p>    
+            </ion-col>
+            <ion-col size="4">
+                <p>9</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>.</p>
+            </ion-col>
+            <ion-col size="4">
+                <p>0</p>
+            </ion-col>
+            <ion-col size="4">
+                <p> <ion-icon name="arrow-back-outline"></ion-icon> </p>
+            </ion-col>
+        </ion-row>
+
+        <ion-button expand="block" color="dark" (click)="next()" style="margin-top: 2em;">Confirmar</ion-button>
+
+</div>
+
+<div  style="padding: 1em;margin-top:3em;" *ngIf="step == 2">
+    <p>Correo electronico</p>
+    <ion-input placeholder="Correo electronico"></ion-input>
+
+    <div style="padding: 1em;" >
+        <p>Cliente con cuenta</p>
+        <p>Se enviara una notificación</p>
+    </div>
+    
+    <div style="padding: 1em;">
+        <p>Cliente sin cuenta</p>
+        <p>Se enviara un correo</p>
+    </div>
+</div>
+
+<div style="padding: 1em;margin-top:3em;" *ngIf="step == 3">
+    <ion-icon name="checkmark-circle-outline"></ion-icon>
+    <h2>Se ha creado existosamente</h2>
+    <p>Se ha enviado un correo </p>
+</div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-button *ngIf="step == 2" color="dark" expand="block" (click)="buy()">
+        Comprar
+    </ion-button>
+
+    <ion-button color="success" *ngIf="step == 3" expand="block" (click)="goBack()">
+        Cerrar
+    </ion-button>
+</ion-footer>

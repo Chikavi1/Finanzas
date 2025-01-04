@@ -1,0 +1,71 @@
+ 
+<ion-content [fullscreen]="true">
+ 
+
+  <div style="padding: 1em;">
+  
+    <ion-row>
+      <ion-col size="2">
+      </ion-col>
+  
+      <ion-col offset="8" size="2" style="text-align: right;" (click)="presentActionSheet()">
+        <h2><i class="fa-solid fa-ellipsis"></i></h2>
+      </ion-col>
+    </ion-row>
+  
+    <h2>Vista del objetivo</h2>
+  
+    <ion-card style="padding: 1em;">
+      <ion-row>
+        <ion-col size="9">
+          <h2>{{goal.name}}</h2>
+          <p>Finaliza el {{goal.end}}</p>
+          <p>60 mensualidades de pagos </p>
+        </ion-col>
+        <ion-col size="3" style="text-align: right;">
+          <h3>
+            <i class="fa-solid fa-car"></i>
+          </h3>
+          <p>${{goal.amount | number}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  
+    <ion-card style="padding: 1em;">
+      <h4>Proceso</h4>
+      <h1>{{checkProcess()}}</h1>
+      <ion-progress-bar color="success" [value]="process"></ion-progress-bar> <ion-progress-bar
+        type="determinate"></ion-progress-bar>
+    </ion-card>
+  
+    <ion-card style="padding: 1em;">
+      <h4>Transacciones</h4>
+  
+      <div style="text-align: center;">
+        <div *ngIf="movements.length == 0">
+          <h2><i class="fa-regular fa-file-lines"></i></h2>
+          <p>No hay Transacciones</p>
+          <p>Recuerda ir agregando</p>
+        </div>
+      </div>
+
+      <ion-row *ngIf="movements.length > 0">
+        <ion-col size="9">
+          <h2>{{movements[0].name}}</h2>
+          <p>{{movements[0].date | date}}</p>
+        </ion-col>
+        <ion-col size="3">
+          <p>{{movements[1].amount | number}}</p>
+        </ion-col>
+      </ion-row>
+
+    </ion-card>
+  
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-button color="danger" expand="block" (click)="closeModal()">
+    Cerrar
+  </ion-button>
+</ion-footer>

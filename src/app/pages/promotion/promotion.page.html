@@ -1,0 +1,26 @@
+ 
+<ion-content [fullscreen]="true">
+  <ion-card style="border-radius: 1em;"  >
+    <div style="padding:1em;height: 10em;width: 100%;background-color: #006b44;">
+      <img style="width: 3em;height: 3em;border-radius: 50%;"
+        [src]="promotion.image"
+        alt="">
+    </div>
+    <div style="padding:1em">
+      <ion-chip color="success">{{promotion.title}}</ion-chip>
+      <p>{{ promotion.description }}</p>
+    </div>
+  </ion-card>
+
+  <div style="padding: 1em;">
+  <h2>Terminos y condiciones</h2>
+    <p>
+      {{ promotion.terms }}
+    </p>
+  </div>
+  <p></p> 
+</ion-content>
+
+<ion-footer>
+<ion-button color="danger" expand="full" (click)="close()">Cerrar</ion-button>
+</ion-footer>

@@ -1,0 +1,18 @@
+<ion-content [fullscreen]="true">
+
+<div style="margin-top: 6em;">
+  
+  <h1 style="text-align: center;">Luis Rojas</h1>
+  <p style="text-align: center;"> 
+    <qrcode [qrdata]="'Your data string'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  </p>
+
+  <p style="text-align: center;">Muestra este código QR o usa el codigo de tu applet wallet al negocio para que registre tu visita</p>
+</div>
+
+
+</ion-content>
+
+<ion-footer>
+    <ion-button color="danger" expand="full" (click)="closeModal()">Cerrar</ion-button>
+</ion-footer>

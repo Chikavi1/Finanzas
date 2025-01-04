@@ -1,0 +1,17 @@
+
+<ion-content [fullscreen]="true">
+<div style="margin-top: 3em;">
+</div>
+
+  <ion-card style="border-radius: 1em;" *ngFor="let promotion of promotions" (click)="openPromotion()">
+    <div style="padding:1em;height: 10em;width: 100%;background-color: #006b44;">
+      <img style="width: 3em;height: 3em;border-radius: 50%;" [src]="promotion.image" alt="">
+    </div>
+    <div style="padding:1em">
+      <ion-chip color="success">Nuevo</ion-chip>
+      <h2>{{promotion.title}}</h2>
+      <p>{{promotion.description}}</p>
+    </div>
+  </ion-card>
+  
+</ion-content>

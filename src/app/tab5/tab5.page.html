@@ -1,0 +1,39 @@
+<ion-content >
+    <div style="padding: 1em;">
+      <h2>Deudas</h2>
+
+      <div *ngIf="debts.length > 0">
+        <div style="text-align: center;margin-top: 4em;">
+          <h2>Deuda total</h2>
+          <p [ngClass]="{'red': total >= 0, 'green': total < 0}" style="font-size: 2em;">$ {{total  | number}} </p>
+        </div>
+      
+        <ion-row *ngFor="let debt of debts" (click)="goToDebt(debt)" >
+          <ion-col size="8">
+            <h2 class="capital">{{debt.name}}</h2>
+          </ion-col>
+
+          <ion-col size="4">
+            <h2 style="text-align: right;">${{debt.amount | number }}</h2>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div style="text-align: center;margin-top: 5em;" *ngIf="debts.length == 0">
+        <h2>
+          <i class="fa-solid fa-handshake-simple"></i>
+        </h2>
+        <h5>No hay deudas</h5>
+        <p>Si no haz agregado deudas, puedes crear uno o ver el listado de tus deudas</p>
+        <ion-button color="dark" (click)="addDebt()">Agregar deuda</ion-button>
+        <ion-button color="dark" fill="clear">Leer más</ion-button>
+      </div>
+
+    </div>
+
+</ion-content>
+
+<ion-fab slot="fixed" horizontal="end" vertical="bottom" (click)="addDebt()">
+  <ion-fab-button color="dark">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

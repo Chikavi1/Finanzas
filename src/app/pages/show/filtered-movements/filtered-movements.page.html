@@ -1,0 +1,47 @@
+ 
+
+<ion-content [fullscreen]="true">
+
+  <div style="padding: 1em;margin-top: 2em;">
+    <h1>
+      <i *ngIf="method == 'cash'" class="fa-solid fa-wallet"></i>
+      <i *ngIf="method == 'bank'" class="fa-solid fa-building-columns"></i>
+      <i *ngIf="method == 'goal'" class="fa-solid fa-bullseye"></i>
+      <i *ngIf="method == 'debt'" class="fa-solid fa-handshake-simple"></i>
+      <i *ngIf="method == 'paypal'" class="fa-brands fa-paypal"></i>
+    </h1> 
+    <h2>{{ method }}</h2>
+  </div>
+
+  <ion-row style="margin-top: 1.5em;padding: 1em;" *ngFor="let mov of movements">
+  
+    <ion-col size="8"  >
+      <div style="display: flex; align-items: center;padding-top: .5em;">
+        <div style="margin-right: 10px;">
+          <img style="border-radius: 50%; width: 50px; height: 50px;"
+            src="https://api.dicebear.com/9.x/thumbs/svg?seed=ca" alt="">
+        </div>
+        <div>
+          <p style="margin: 0; font-weight: bold;" class="capital">{{mov.name}}</p>
+          <p style="margin: 0; font-size: 0.9em; color: gray;">{{mov.date | date: 'dd/MM/yyyy HH:mm a' }}</p>
+        </div>
+      </div>
+    </ion-col>
+  
+    <ion-col size="4" >
+      <h2 style="color: seagreen;text-align: right;" *ngIf="mov.type == 'income'">${{ mov.amount | number }}</h2>
+      <h2 style="color: red;text-align: right;" *ngIf="mov.type == 'expense'">${{ mov.amount | number }}</h2>
+    </ion-col>  
+  </ion-row>
+
+  <div style="text-align: center;margin-top: 5em;" *ngIf="movements.length == 0">
+    <h2><i class="fa-regular fa-file-lines"></i></h2>
+    <h5>No hay movimiento de este tipo</h5>
+    <p>Para que aparezcan debes de agregar un movimiento</p>
+   </div>
+
+  </ion-content>
+
+  <ion-footer>
+    <ion-button color="danger" expand="block" (click)="goBack()">Cerrar</ion-button>
+  </ion-footer>

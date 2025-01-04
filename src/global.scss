@@ -1,0 +1,119 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";
+@import '@ctrl/ngx-emoji-mart/picker';
+
+.danger-button{
+    color: red !important;
+}
+
+.input-custom {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    appearance: none;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    width: 100%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    color: #4a5568;
+    line-height: 1.25rem;
+    outline: none;
+}
+
+.input-custom:focus {
+    box-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
+}
+
+.capital:first-letter{
+    text-transform: capitalize;
+}
+
+.red{
+    color: red;
+}
+
+.green{
+    color: green;
+}
+
+
+ion-item {
+    --background: transparent !important;
+    /* Estilo principal para fondo transparente */
+    --ion-item-background: transparent !important;
+    /* Fondo específico de Ionic */
+}
+
+@media (prefers-color-scheme: dark) {
+    .apexcharts-legend-text {
+        color: var(--legend-color-dark) !important;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .apexcharts-legend-text {
+        color: var(--legend-color-light) !important;
+    }
+}
+
+ion-tab-bar {
+    border-top: none !important;
+     box-shadow: none !important;
+ }
+
+/* Estilo general */
+ion-tab-bar {
+    --ion-color-selected: var(--dynamic-color);
+}
+
+/* Tema claro */
+body.light {
+    --dynamic-color: black;
+    /* Color para íconos y etiquetas */
+}
+
+/* Tema oscuro */
+body.dark {
+    --dynamic-color: white;
+
+    ion-item{
+        background-color: transparent !important;
+    }
+    /* Color para íconos y etiquetas */
+}

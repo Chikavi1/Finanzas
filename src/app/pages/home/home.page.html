@@ -1,0 +1,60 @@
+ 
+
+<ion-content  >
+  
+  <ion-row style="padding: 1em;margin-top: 3em;">
+    <ion-col size="6">
+      <h1>Buenos dias</h1>
+      <h4>Luis</h4>
+    </ion-col>
+    <ion-col size="5">
+    </ion-col>
+    <ion-col size="1" (click)="goNotifications()">
+      <h1><ion-icon name="notifications-outline"></ion-icon></h1>
+    </ion-col>
+  </ion-row>
+
+   
+
+  <ion-searchbar placeholder="Busca negocio "></ion-searchbar>
+
+  <ion-card style="padding: 1em;background-color: #060886;color:white" (click)="openQR()">
+    <h2>Ver mi código QR</h2>
+    <p style="margin-top: 2em;font-size: 2em"><ion-icon name="qr-code-outline"></ion-icon></p>
+  </ion-card>
+
+  <ion-card style="padding: 1em;background-color: #006b44;color:white" (click)="openMap()">
+    <h2>Encuentra negocios cercanos</h2>
+    <p style="margin-top: 2em;font-size: 2em"><ion-icon name="location"></ion-icon></p>
+  </ion-card>    
+
+  <div style="padding: 1em;">
+
+    
+    <h2>Recomendados</h2>
+    
+    <ion-card style="padding: 1em;" *ngFor="let recommend of recommends" (click)="goToBusiness()">
+      <ion-row>
+        <ion-col size="3">
+          <img style="border-radius: 50%;" alt="Silhouette of mountains" [src]="recommend.image" />
+        </ion-col>
+        <ion-col>
+          <h2>{{recommend.title}}</h2>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+
+  <div style="padding:1em;">
+
+    <h2>¿No encuentras tu negocio de preferencia?</h2>
+    <p>Puedes recomendarlo y que se registre gratis</p>
+  </div>
+
+  <ion-card style="padding: 1em;margin-top: 3em;">
+    <h2>Comparte la app</h2>
+    <p>Comparte la app para que tus amigos puedan acumular puntos con su negocio preferido</p>
+    <ion-button  style="margin-top: 1em;" color="tertiary" expand="block" (click)="shareApp()">Compartir</ion-button>
+  </ion-card>
+    
+</ion-content>

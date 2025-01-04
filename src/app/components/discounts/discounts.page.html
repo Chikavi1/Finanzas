@@ -1,0 +1,46 @@
+ 
+
+<ion-content [fullscreen]="true">
+  
+  
+  <div 
+    *ngIf="!selectedImage"
+    style="background-color: beige;
+    width: 100%;
+    height: 15em;
+    ">
+    <ion-icon name="add-circle-outline" (click)="openGallery()"></ion-icon>
+  </div>
+
+  <img *ngIf="selectedImage" [src]="selectedImage" alt="Imagen seleccionada" />
+
+
+<div style="padding: 1em;">
+  <h2>Crear promoción</h2>
+
+  <p>Titulo</p>
+  <ion-input  class="input-custom" placeholder="Titulo" [(ngModel)]="title"></ion-input>
+
+  <p>Descripción</p>
+  <ion-textarea class="input-custom" placeholder="Descripción" [(ngModel)]="description">
+  </ion-textarea>
+
+  <p>Terminos y condiciones</p>
+  <ion-textarea class="input-custom" placeholder="Terminos y condiciones" [(ngModel)]="terms">
+  </ion-textarea>
+  
+  </div>
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-row>
+    <ion-col size="6" (click)="goBack()">
+      <ion-button color="danger" expand="full">Cancelar</ion-button>
+    </ion-col>
+    <ion-col size="6" (click)="create()">
+      <ion-button color="success" expand="full" [disabled]="!title || !description || !terms" >Crear</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -1,0 +1,33 @@
+
+<ion-content [fullscreen]="true">
+  <div style="padding: 1em;margin-top: 2.4em;">
+    <h2>Agregar deuda</h2>
+  
+    <ion-input style="margin-top: 2em;margin-left: 1em;" [(ngModel)]="name" placeholder="Agrega una descripción para recordar la deuda">
+    </ion-input>
+  
+    <ion-item lines="none" style="margin-top: 2em;">
+      <ion-label position="fixed"><i class="fa-solid fa-dollar-sign"></i> Monto</ion-label>
+      <ion-input [(ngModel)]="amount"  placeholder="Ingresa cantidad" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
+    </ion-item>
+  
+  </div>
+</ion-content>
+
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="full" color="danger" shape="round" style="margin-top: 2.3em;" (click)="close()">
+        &nbsp;
+        Cerrar</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button
+      [disabled]="name.length < 4 || amount == 0" (click)="create()"
+      expand="full" color="dark" shape="round" style="margin-top: 2.3em;"><ion-icon name="add"></ion-icon>
+        &nbsp;
+        Agregar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

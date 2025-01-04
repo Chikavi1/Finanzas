@@ -1,0 +1,35 @@
+ 
+
+<ion-content [fullscreen]="true">
+  
+  <div style="padding: 1em;">
+  
+    <h2>Movimientos Recurrentes</h2>
+
+    <div style="text-align: center;margin-top: 2em;" *ngIf="recurrents.length == 0">
+      <h2 style="margin-top: 3em;"><i class="fa-regular fa-file-lines"></i></h2>
+      <h5>No hay movimientos recurrentes</h5>
+      <p>Agrega movimientos para que aparezcan aqui</p>
+    </div>
+  
+    <ion-row *ngFor="let recurrent of recurrents" (click)="showRecurrent(recurrent)">
+      <ion-col size="9">
+        <h2 class="capital">{{recurrent.name}}</h2>
+        <p>Cada  Quince dias</p>
+      </ion-col>
+      <ion-col size="3">
+        <h2  [ngClass]="recurrent.type  == 'expense' ? 'red' : 'green'" style="text-align: right;">${{recurrent.amount | number}}</h2>
+      </ion-col>
+    </ion-row>
+ 
+  
+  </div>
+
+
+</ion-content>
+
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom" (click)="addRecurrent()">
+    <ion-fab-button color="dark">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>

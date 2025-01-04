@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true">
+  <div style="padding: 1em;">
+    <h2>Registrarme</h2>
+
+    <p style="margin-top:2em;">Nombre completo</p>
+    <ion-input placeholder="Nombre" [(ngModel)]="name"></ion-input>
+
+    <p>Correo electronico</p>
+    <ion-input placeholder="Correo"  [(ngModel)]="email"></ion-input>
+
+    <p>Contraseña</p>
+    <ion-input placeholder="Contraseña"  [(ngModel)]="password"></ion-input>
+    
+    <h2>Selecciona el tipo</h2>
+
+    <ion-segment [(ngModel)]="options" value="info" style="margin: 2em 0em;">
+      <ion-segment-button value="info">
+        <ion-label>Clientes</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="visits">
+        <ion-label>Negocio</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button color="danger" expand="block" (click)="register()">
+    Registrarme
+  </ion-button>
+</ion-footer>

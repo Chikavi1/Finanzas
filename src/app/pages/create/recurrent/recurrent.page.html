@@ -1,0 +1,58 @@
+ 
+<ion-content [fullscreen]="true">
+  <div style="margin-top: 2em;padding:1em;">
+    <h2>Agregar movimiento recurrente</h2>
+
+    <ion-input style="margin-top: 2em;margin-left: 1em;" [(ngModel)]="name" placeholder="Agrega una descripción ">
+    </ion-input>
+
+
+    <ion-item lines="none" style="margin-top: 2em;">
+      <ion-select [(ngModel)]="each" label="Tipo" placeholder="Selecciona el tipo ">
+        <ion-select-option value="income">Ingreso</ion-select-option>
+        <ion-select-option value="expense">Gasto</ion-select-option>
+  
+    
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item lines="none" style="margin-top: 2em;">
+      <ion-label position="fixed"><i class="fa-solid fa-dollar-sign"></i> Monto</ion-label>
+      <ion-input  [(ngModel)]="amount" (ionInput)="validateInput($event)" placeholder="Ingresa cantidad" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-select [(ngModel)]="each" label="Cada cuantas veces" placeholder="Selecciona el tipo ">
+        <ion-select-option value="1">Cada dia</ion-select-option>
+        <ion-select-option value="7">Cada semana</ion-select-option>
+        <ion-select-option value="15">Cada quincena</ion-select-option>
+        <ion-select-option value="30">Cada mes</ion-select-option>
+        <ion-select-option value="90">Cada bimestre</ion-select-option>
+        <ion-select-option value="180">Cada semestre</ion-select-option>
+        <ion-select-option value="365">Cada año</ion-select-option>
+
+      </ion-select>
+    </ion-item>
+
+
+  </div>
+  
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="full" color="danger" shape="round" style="margin-top: 2.3em;" (click)="close()">
+        &nbsp;
+        Cerrar</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button 
+      [disabled]="name.length < 2 || amount == 0  "
+      expand="full" color="dark" shape="round" style="margin-top: 2.3em;" (click) ="add()"><ion-icon name="add"></ion-icon>
+        &nbsp;
+        Agregar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

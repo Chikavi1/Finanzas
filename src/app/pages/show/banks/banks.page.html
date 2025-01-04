@@ -1,0 +1,49 @@
+ 
+
+<ion-content [fullscreen]="true">
+
+  <div style="padding: 1em;margin-top: 3em;">
+
+
+  <h2>Tarjetas</h2>
+
+  <ion-chip (click)="setType('debit')">
+    <ion-label>Debito</ion-label>
+  </ion-chip>
+
+  <ion-chip (click)="setType('credit')">
+    <ion-label>Credito</ion-label>
+  </ion-chip>
+
+  <ion-chip *ngIf="isFiltered" (click)="clearFilter()">
+        <i class="fa-solid fa-xmark"></i> &nbsp; Quitar filtro
+  </ion-chip>
+
+ <ion-card style="padding: 1em;background-color: blueviolet;color:white;"  *ngFor="let item of cards">
+  <h2>{{ item.name}}</h2>
+ 
+  <ion-row style="margin-top: 3em;">
+    <ion-col size="8">
+      <p *ngIf="item.type == 'debit'">Debito</p>
+      <p *ngIf="item.type == 'credit'">Credito</p>
+    </ion-col>
+    <ion-col size="4">
+      <p style="text-align: right;">**** {{item.last4}}</p>
+      </ion-col>
+  </ion-row>
+
+ </ion-card>
+
+  </div>
+
+</ion-content>
+
+<ion-fab slot="fixed" horizontal="end" vertical="bottom" style="margin-bottom: 3em;" (click)="addCard()" >
+  <ion-fab-button color="dark">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab> 
+
+<ion-footer>
+  <ion-button color="danger" expand="block" (click)="goBack()">Cerrar</ion-button>
+</ion-footer>

@@ -1,0 +1,69 @@
+<ion-content [fullscreen]="true">
+ 
+  <div style="padding: 1em;">
+
+    
+    <h2 style="margin-top: 3em;">Crear notificación</h2>
+
+    <p>Selecciona una opción:</p>
+    
+    <ion-row style="text-align: center;">
+      <ion-col (click)="setGroup(1)">
+        <ion-card style="padding: 1em;">
+            <p>Grupal</p>
+        </ion-card>
+      </ion-col>
+      <ion-col (click)="setGroup(2)">
+        <ion-card  style="padding: 1em;">
+          <p>Individual</p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+        
+    <p>Titulo</p>
+    <ion-input class="input-custom" placeholder="Titulo" [(ngModel)]="title"></ion-input>
+
+    <p>Descripción</p>
+    <ion-textarea class="input-custom" placeholder="Description" [(ngModel)]="description"></ion-textarea>
+
+    <p>Selecciona el tipo de notificación</p>
+
+    <ion-row style="text-align: center;">
+      <ion-col size="6" (click)="setType(1)">
+        <ion-card style="padding: 0.5em">
+            <p>Push</p>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" (click)="setType(2)">
+        <ion-card  style="padding: 0.5em">
+          <p>Email</p>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" (click)="setType(3)">
+        <ion-card style="padding: 0.5em">
+          <p>Email</p>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" (click)="setType(4)">
+        <ion-card style="padding: 0.5em">
+          <p>Email</p>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+
+  </div>
+
+  </ion-content>
+
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button color="danger" (click)="goBack()" expand="full">Cerrar</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button color="dark" expand="full" (click)="create()">Crear</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

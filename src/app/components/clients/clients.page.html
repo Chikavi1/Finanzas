@@ -1,0 +1,42 @@
+ 
+<ion-content [fullscreen]="true">
+
+
+  <div style="padding: 1em;">
+    <h2>Agregar cliente</h2>
+
+    <p>Nombre</p>
+    <ion-input class="input-custom" placeholder="Nombre"></ion-input>
+    
+    <p>Correo</p>
+    <ion-input  class="input-custom"  placeholder="Correo"></ion-input>
+
+    <p>Genero</p>
+    <ion-input  class="input-custom" placeholder="Correo"></ion-input>
+
+    <p>Celular</p>
+    <ion-input  class="input-custom" placeholder="Celular" type="number"></ion-input>
+
+
+    <p>Fecha de nacimiento</p>
+    <ion-datetime></ion-datetime>
+
+
+
+  </div>
+</ion-content>
+
+
+
+<ion-footer> 
+
+  <ion-row>
+    <ion-col size="6" (click)="goBack()">
+      <ion-button color="danger" expand="full" >Cancelar</ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button color="success" expand="full" [disabled]="true" (click)="create()">Crear</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-footer>

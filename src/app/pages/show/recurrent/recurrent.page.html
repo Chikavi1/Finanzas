@@ -1,0 +1,35 @@
+ 
+<ion-content [fullscreen]="true">
+  <div style="padding: 1em;">
+    <ion-row>
+      <ion-col size="10">
+        <h2>Detalle del movimiento </h2>
+      </ion-col>
+      <ion-col size="2" (click)="presentActionSheet()">
+        <h2 style="text-align: right;"><i class="fa-solid fa-ellipsis"></i></h2>
+      </ion-col>
+    </ion-row>
+  
+    <p>Monto del movimiento del recurrent</p>
+    <h2>${{ recurrent.amount | number }}</h2>
+  
+    <p>Nombre del movimiento del recurrente</p>
+    <h2>{{ recurrent.name }}</h2>
+  
+    <p>Comienzo del movimiento</p>
+    <h2>{{ recurrent.start | date }}</h2>
+  
+  
+    <p>Cada cuanto se realiza el movimiento</p>
+    <h2>{{ recurrent.frequency }}</h2>
+  
+    <p>Tipo de movimiento</p>
+    <h2>{{ recurrent.type }}</h2>
+  </div>
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-button color="danger" expand="block" (click)="goBack()">Cerrar</ion-button>
+</ion-footer>

@@ -1,0 +1,31 @@
+<ion-content [fullscreen]="true">
+  <div style="padding: 1em;">
+    <h2>Registrarme</h2>
+
+    <p style="margin-top:2em;">Nombre de tu negocio</p>
+    <ion-input placeholder="Nombre del negocio" [(ngModel)]="name"></ion-input>
+
+    <p>Correo electronico</p>
+    <ion-input placeholder="Correo electronico" [(ngModel)]="email"></ion-input>
+
+    <p>Contraseña</p>
+    <ion-input placeholder="Contraseña" [(ngModel)]="password"></ion-input>
+
+    <h2>Selecciona el tipo</h2>
+
+    <ion-item>
+      <ion-select label="Default label" placeholder="Selecciona tu tipo">
+        <ion-select-option *ngFor="let fruit of type" value="apple">{{fruit}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+ 
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button color="danger" expand="block" (click)="register()">
+    Registrarme
+  </ion-button>
+</ion-footer>

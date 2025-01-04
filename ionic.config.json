@@ -1,0 +1,7 @@
+{
+  "name": "uPoints",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

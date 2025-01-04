@@ -1,0 +1,49 @@
+ 
+<ion-content [fullscreen]="true">
+
+  <div style="margin-top: 3em;padding:1em;">
+    <ion-row>
+      <ion-col size="10">
+        <h2>Detalle de la Deuda</h2>
+      </ion-col>
+      <ion-col size="2" (click)="presentActionSheet()">
+        <h2 style="text-align: right;"><i class="fa-solid fa-ellipsis"></i></h2>
+      </ion-col>
+    </ion-row>
+ 
+    <p style="margin-top: 2em;">Nombre de la deuda</p>
+    <h2 class="capital">{{ debt.name }}</h2>
+
+    <p style="margin-top: 2em;">Monto de la deuda</p>
+    <h2 style="color:red;">$ {{ debt.amount | number }}</h2>
+
+    <p>Total pagado</p>
+    <h2 style="color:green;">$ {{ total_paid | number }}</h2>
+
+    <p style="margin-top: 2em;">Fecha de la deuda</p>
+    <h2>{{ debt.date | date }}</h2>
+    
+    <div *ngIf="debt.description">
+      <p style="margin-top: 2em;">Nota de la deuda</p>
+      <p>{{ debt.description }}</p>
+    </div>
+
+  </div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Transacciones de la deuda</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <h2>
+        <ion-icon name="cash"></ion-icon>
+          2500
+      </h2>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-button color="danger" expand="block" (click)="goBack()">Cerrar</ion-button>
+</ion-footer>

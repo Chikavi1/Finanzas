@@ -1,0 +1,16 @@
+<ion-content [fullscreen]="true">
+  
+  <div style="padding: 3em;"> 
+    <h2>Ingresar</h2>
+    
+    <ion-input style="margin-top: 2em;" placeholder="Email"  [(ngModel)]="email"></ion-input>
+    <ion-input placeholder="Contraseña" [(ngModel)]="password" ></ion-input>
+    <ion-button style="margin-top: 2em;" expand="block" color="dark" (click)="login()">Ingresar </ion-button>
+    <p (click)="goToRegister()">No tengo cuenta</p>
+
+  </div>
+ 
+ 
+
+</ion-content>
+

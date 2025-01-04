@@ -1,0 +1,111 @@
+ 
+<ion-content [fullscreen]="true">
+
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button 
+     color="dark"
+  size="small"
+  (click)="goBack()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div 
+  
+  [ngStyle]="{'background': business.background, 'color': business.foreground}"
+
+  style="height: 15em;width: 100%;">
+
+  </div>
+  <img style="margin-left: 1em;width: 5em;height: 5em;border-radius: 50%;margin-top: -3em;" [src]="business.image" alt="image">
+  
+  <div style="padding: 1em;">
+    <h2>{{ business.name }}</h2>
+    <ion-chip>{{business.category}}</ion-chip>
+  
+    <ion-segment [(ngModel)]="menu" value="info" style="margin: 2em 0em;">
+      <ion-segment-button value="info">
+        <ion-label>Info</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="visits">
+        <ion-label>Mis Visitas</ion-label>
+      </ion-segment-button>
+  
+      <ion-segment-button value="clients">
+        <ion-label>Clientes destacados</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+
+    <div *ngIf="menu === 'info'">
+      <p>Descripcion</p>
+      <p>{{business.description}}</p>
+
+
+      
+
+      <p>Redes sociales</p>
+      
+
+      <ion-icon name="logo-facebook" *ngIf="business.social_media[0].name == 'Facebook'" (click)="openWeb('https://www.facebook.com')"></ion-icon>
+      <ion-icon name="logo-instagram" *ngIf="business.social_media[1].name == 'Instagram'" (click)="openWeb('https://www.instagram.com')"></ion-icon>
+      <ion-icon name="logo-tiktok" *ngIf="business.social_media[2].name == 'Tiktok'" (click)="openWeb('https://www.tiktok.com')"></ion-icon>
+      
+      <p>Ubicaciones</p>
+     
+       <ion-card *ngFor="let a of [1,1]">
+        <ion-row>
+          <ion-col size="4">
+            <img style="width: 100% ;height: 100%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjoWJLnEyWI_I514nHon3t30-xjDy4X_ednw&s" alt="image">
+          </ion-col>
+          <ion-col size="8">
+              <p style="font-weight: bold;">Sucursal la perla</p>
+              <p style="font-weight: 300;">{{business.address}}</p>
+              <p>{{ business.hours }}</p>
+          </ion-col>
+        </ion-row>
+       </ion-card>    
+    
+         <ion-card *ngIf="business.menu_url != null" style="height: 15em; background-color: #275d57; color:white;padding:1em;border-radius: 1em;" (click)="openWeb(business.menu_url)">
+          <ion-icon name="restaurant-outline"></ion-icon>
+          <h1>Menú</h1>
+         </ion-card>
+
+
+         <h2 style="margin: 2em 0em;">Promociones</h2>
+         <ion-card style="padding: 1em;" *ngFor="let client of [1,1,1,1]" (click)="goToPromotion()">
+           <p>Compra 7 y recibe uno gratis</p>
+         </ion-card>
+
+
+         <ion-card style="padding: 1em;">
+           <h2>Comparte este negocio</h2>
+           <p>Comparte con tus amigo este negocio y para que conozcan que ps</p>
+           <ion-button expand="block" color="tertiary" (click)="shareApp()">
+             Compartir
+            </ion-button>
+          </ion-card>
+
+    </div>
+
+
+<div *ngIf="menu === 'clients'">
+
+  <h2>Clientes destacados</h2>
+  <ion-card style="padding: 1em;border-radius: 1em;" *ngFor="let client of [1,1,1,1,1,1,1,1]">
+    <h2>Luis Rojas </h2>
+  </ion-card>
+
+</div>
+
+<div *ngIf="menu === 'visits'">  
+  <h2>Mis Visitas</h2>
+  <ion-card style="padding: 1em;border-radius: 1em;" *ngFor="let client of [1,1,1,1,1,1,1,1]">
+    <p>29/10/2024 9:34 pm</p>
+  </ion-card>
+</div>
+
+     
+    </div>
+
+</ion-content>

@@ -1,0 +1,30 @@
+ 
+  <!-- <img style="height: 2em;width: 2em;border-radius: 50%;" src="https://media.revistagq.com/photos/5d5d383031110c000879872d/1:1/w_1080,h_1080,c_limit/logo-starbucks.jpg" alt=""> -->
+
+  <ion-content  >
+    <div style="height: 100%;background-color: #006b44; padding-top: 10em;">
+      <ion-card style="margin:1em; padding:1em; border-radius: 1em; background-color: #006b44; color: white;">
+        <div style="text-align: center;">
+          <h2>Starbucks</h2>
+        </div>
+    
+        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+          <ng-container *ngFor="let i of [].constructor(count); let idx = index">
+            <img 
+              [style.opacity]="idx < redeem ? 1 : 0.3" 
+              style="margin: 1em 0.5em; height: 4em; width: 4em; border-radius: 50%;" 
+              src="https://media.revistagq.com/photos/5d5d383031110c000879872d/1:1/w_1080,h_1080,c_limit/logo-starbucks.jpg" 
+              alt="">
+          </ng-container>
+        </div>
+      </ion-card>
+    
+      <p style="text-align: center;font-weight: bold;">Compre {{count}} cafés y reciba uno totalmente gratis</p>
+      <p style="text-align: center; font-size: .75em;">Términos y condiciones</p>
+    
+
+    </div>
+  </ion-content>
+  <ion-footer>
+    <ion-button color="dark" expand="full" (click)="close()">Cerrar</ion-button>
+  </ion-footer>

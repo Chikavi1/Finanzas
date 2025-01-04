@@ -1,0 +1,26 @@
+ 
+
+<ion-content [fullscreen]="true">
+
+  <div style="padding: 1em;">
+    <h2>Reportes</h2>
+    <ion-card style="padding: 1em;">
+      <h2>Esta quincena</h2>
+      <div style="text-align: center;">
+        <p>Tienes disponible </p>
+        <h2>$ 7, 200</h2>
+      </div>
+    </ion-card>
+  
+    <ion-card style="padding: 1em;">
+      <h2>Este mes</h2>
+      <div id="chart">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+          [colors]="chartOptions.colors">
+        </apx-chart>
+      </div>
+
+    </ion-card>
+  </div>
+
+</ion-content>

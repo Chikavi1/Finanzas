@@ -1,0 +1,76 @@
+<ion-content [fullscreen]="true">
+    <div style="padding: 1em;margin-top: 2.4em;">
+      <h2>Agregar información</h2>
+      <ion-item lines="none">
+        <ion-label position="fixed"><i class="fa-solid fa-building-columns"></i> Banco</ion-label>
+        <ion-input [(ngModel)]="name" placeholder="Nombre del banco" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
+      </ion-item>
+    
+      <ion-item style="background-color: transparent;" lines="none">
+        <ion-label position="fixed"><i class="fa-solid fa-money-check"></i> 4 digitos</ion-label>
+        <ion-input [(ngModel)]="last4" maxlength="4" (ionInput)="validateInput($event)" placeholder="Ultimos 4 digitos de la tarjeta" type="tel"
+          style="margin-left: auto;text-align: right;"></ion-input>
+      </ion-item>
+    
+    
+      <ion-item lines="none">
+        <ion-select  [(ngModel)]="type"  label="Tipo de tarjeta" placeholder="Selecciona el tipo ">
+          <ion-select-option value="debit">Debito</ion-select-option>
+          <ion-select-option value="credit">Credito</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+
+      <ion-item lines="none" *ngIf="type=='debit'">
+        <ion-label position="fixed"><i class="fa-solid fa-building-columns"></i>Saldo</ion-label>
+        <ion-input    [(ngModel)]="balance" (ionInput)="validateInput($event)" placeholder="Nombre del banco" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
+      </ion-item>
+
+
+      <ion-item lines="none" *ngIf="type=='credit'">
+        <ion-label position="fixed"><i class="fa-solid fa-signal"></i> Limite</ion-label>
+        <ion-input  [(ngModel)]="limit" (ionInput)="validateInput($event)" placeholder="Limite del credito" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
+      </ion-item>
+
+
+
+      <ion-chip style="margin-top: 2em;"><ion-icon name="color-wand-outline"></ion-icon>&nbsp; Personalizar</ion-chip>
+         
+
+      
+      <div style="margin-top: 3em;">
+
+          <ion-item lines="none" *ngIf="type=='credit'">
+            <ion-label position="fixed"><i class="fa-solid fa-droplet"></i> Color de la tarjeta</ion-label>
+            <input [(ngModel)]="color" type="color" value="#ff0000" id="favcolor" name="favcolor" style="margin-top: 1em;">
+          </ion-item>
+
+          <ion-item lines="none" *ngIf="type=='credit'">
+            <ion-label position="fixed"><i class="fa-solid fa-sack-xmark"></i> credito gastado</ion-label>
+            <ion-input [(ngModel)]="credit_spent" (ionInput)="validateInput($event)" placeholder="Credito gastado" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
+          </ion-item>
+      </div>
+
+      <p style="font-size: .8em;margin-top:2em;">Tu información es completamente privada y segura. La utilizamos únicamente para ayudarte a
+        recordar fácilmente tus
+        cuentas bancarias cuando las necesites.</p>
+ 
+    
+    </div>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="full" color="danger" shape="round" style="margin-top: 2.3em;" (click)="close()"> 
+        &nbsp;
+        Cerrar</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button
+      [disabled]="last4.length != 4 || name.length == 0" (click)="create()"
+      expand="full" color="dark" shape="round" style="margin-top: 2.3em;"><ion-icon name="add"></ion-icon>
+        &nbsp;
+        Agregar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

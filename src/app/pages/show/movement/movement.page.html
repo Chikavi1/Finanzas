@@ -1,0 +1,65 @@
+ 
+
+<ion-content [fullscreen]="true">
+ <div style="margin-top: 2em;padding: 1em;">
+
+  <ion-row>
+    <ion-col size="10">
+      <h2>Detalles del movimiento</h2>
+    </ion-col>
+    <ion-col size="2" (click)="presentActionSheet()">
+      <h2 style="text-align: right;" ><i class="fa-solid fa-ellipsis"></i></h2>
+    </ion-col>
+  </ion-row>
+
+    <p>Monto del movimiento</p>
+    <h1 [ngClass]="movement.type  == 'expense' ? 'red' : 'green'" style="font-size: 2em;font-weight: bold;">$ {{movement.amount  | number}}</h1>
+
+    <p style="margin-top: 2em">Nombre del movimiento</p>
+    <h1 class="capital">{{movement.name}}</h1>
+
+    <div *ngIf="movement.description">
+      <p>Nota del movimiento</p>
+      <p>{{movement.description}}</p>
+    </div>
+
+    <p  style="margin-top: 2em">Fecha del movimiento</p>
+    <h2>{{movement.date | date}}</h2>
+
+    <p  style="margin-top: 2em">Método de pago</p>
+    <h2>  
+      <i *ngIf="movement.method == 'cash'" class="fa-solid fa-wallet"></i>
+      <i *ngIf="movement.method == 'bank'" class="fa-solid fa-building-columns"></i>
+      <i *ngIf="movement.method == 'goal'" class="fa-solid fa-bullseye"></i>
+      <i *ngIf="movement.method == 'debt'" class="fa-solid fa-handshake-simple"></i>
+      <i *ngIf="movement.method == 'paypal'" class="fa-brands fa-paypal"></i>
+      {{movement.method}}
+    </h2>
+
+    <p  style="margin-top: 2em">Tipo de movimiento</p>
+
+    <h2 *ngIf="movement.type == 'expense'"><i class="fa-solid fa-arrow-down"></i> Gasto</h2>
+    <h2 *ngIf="movement.type == 'income'"> <i class="fa-solid fa-arrow-up"></i> Ingreso</h2>
+
+    <p style="margin-top: 2em;font-weight: bold;">Categorias</p>
+
+    <ion-chip  outline>
+      <ion-label>Ingresos</ion-label>
+    </ion-chip>
+
+    <ion-chip  outline>
+      <ion-label>Banco</ion-label>
+    </ion-chip>
+
+    <ion-chip  outline>
+      <ion-label>Debito</ion-label>
+    </ion-chip>
+
+
+
+  </div>
+</ion-content>
+
+  <ion-footer>
+    <ion-button color="danger" expand="block" (click)="goBack()">Cerrar</ion-button>
+  </ion-footer>

@@ -1,0 +1,61 @@
+<ion-content [fullscreen]="true" style="text-align: center;">
+    <div style="padding: 1em;" *ngIf="step != 4" >
+
+        <h2 style="margin-top: 3em;" >UPoints</h2>
+        
+        <div *ngIf="step == 1" >
+            <img src="" alt="">
+            <h1>Siempre contigo</h1>
+            <p>Con nuestra app, tus tarjetas de fidelización están en tu celular. Olvídate de perderlas o dejarlas en casa.
+                ¡Siempre a la mano cuando las necesites!</p>
+            </div>
+            
+            <div *ngIf="step == 2">
+                <img src="" alt="">
+                <h1>rayab</h1>
+                <p>dasdada</p>
+            </div>
+            
+    <div *ngIf="step == 3">
+        <img src="" alt="">
+        <h1>¡Adiós a las tarjetas físicas!</h1>
+        <p>Guarda tus tarjetas de lealtad en Apple Wallet o Google Pay, acumula puntos y disfruta de descuentos
+            exclusivos. Todo a un toque de distancia. ¡Fácil, seguro y a la vanguardia!</p>
+        </div>
+    </div>
+
+    <div *ngIf="step == 4">
+        <h2 style="margin-top: 4em;">Bienvenido a UPoints</h2>
+    </div>
+</ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="step != 4">
+    <ion-toolbar>
+        <ion-row class="ion-align-items-center ion-justify-content-between">
+            <ion-col size="4">
+                <ion-button color="dark" expand="block" fill="clear" (click)="skip()">Skip</ion-button>
+            </ion-col>
+            <ion-col size="4" class="ion-text-center">
+                <p>
+                    <ion-icon 
+                    name="remove-outline" 
+                    [style.opacity]="step >= 1 ? '1' : '0.3'"
+                    ></ion-icon>
+                    <ion-icon 
+                    name="remove-outline" 
+                    [style.opacity]="step >= 2 ? '1' : '0.3'"
+                    ></ion-icon>
+                    <ion-icon 
+                    name="remove-outline" 
+                    [style.opacity]="step >= 3 ? '1' : '0.3'"
+                    ></ion-icon>
+                </p>
+            </ion-col>
+            <ion-col size="4" class="ion-text-end" (click)="next()">
+                <ion-button color="dark" shape="round">
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-footer>

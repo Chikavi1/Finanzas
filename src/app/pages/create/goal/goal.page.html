@@ -1,0 +1,69 @@
+
+
+<ion-content [fullscreen]="true">
+
+  <div style="padding: 1em;margin-top: 2.4em;">
+    <h2>Agregar Objetivo</h2>
+
+    <div
+      style="background-color: green; width: 4em; height: 4em; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+      <ngx-emoji (click)="openEmojiPicker()" [emoji]="selectedEmoji" set="apple" [size]="40"></ngx-emoji>
+    </div>
+
+    <div *ngIf="showEmojiPicker" class="emoji-picker">
+      <emoji-mart [showPreview]="false"   set="apple" (emojiSelect)="addEmoji($event)">
+      </emoji-mart>
+    </div>
+  
+    <ion-input style="margin-top: 2em;margin-left: 1em;" [(ngModel)]="name" placeholder="Agrega una descripción para recordar este objetivo">
+    </ion-input>
+  
+    <ion-item lines="none" style="margin-top: 1em;">
+      <ion-label position="fixed"><i class="fa-solid fa-dollar-sign"></i> Monto</ion-label>
+      <ion-input [(ngModel)]="amount" placeholder="Ingresa cantidad" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
+    </ion-item>
+  
+    <ion-item lines="none">
+      <ion-label position="fixed"><i class="fa-solid fa-layer-group"></i> Categoria</ion-label>
+      <ion-input placeholder="Ingresa cantidad" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
+    </ion-item>
+  
+    <ion-chip style="margin-top: 2em;"><i class="fa-solid fa-gears"></i> &nbsp; Personalizar</ion-chip>
+  
+    <ion-card>
+      <p>Pagar por mensualidades</p>
+      60
+
+      checkbox // Agregar un "gasto" recurrente para cumplir mi objetivo
+
+    </ion-card>
+
+    <ion-card style="text-align: center;">
+      <p>Cumplirias</p>
+      <h2>Tu objetivo el</h2>
+      <h1>23 de marzo del 2027</h1>
+    </ion-card>
+  
+ 
+  </div>
+
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="full" color="danger" shape="round" style="margin-top: 2.3em;" (click)="close()">
+        &nbsp;
+        Cerrar</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button
+      [disabled]="name.length < 4 || amount == 0" (click)="create()"
+      expand="full" color="dark" shape="round" style="margin-top: 2.3em;"><ion-icon name="add"></ion-icon>
+        &nbsp;
+        Agregar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

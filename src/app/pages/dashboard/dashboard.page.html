@@ -1,0 +1,201 @@
+<!-- <ion-content [fullscreen]="true">
+  <div>
+    <div style="padding: .6em;margin-top: 3em;">
+
+      <div style="padding: 1em;">
+        <h2>Bienvenido</h2>   
+        <p>Que cueros</p>
+        <h2 (click)="goToPlans()" style="text-decoration: underline;">Free</h2>
+      </div>
+      
+      <ion-button color="dark" shape="round" size="medium" (click)="scanBarcode()">
+        <ion-icon  name="qr-code-outline"></ion-icon> &nbsp;
+          <p>Escanear</p> 
+      </ion-button>
+
+      <ion-button color="dark" shape="round"  (click)="goToClients()">
+        <ion-icon name="people-outline"></ion-icon>
+         &nbsp;
+        <p>
+           Clientes
+        </p>
+      </ion-button>
+
+      <ion-button color="dark" shape="round" fill="clear" (click)="presentActionSheet()">
+        <ion-icon name="grid-outline"></ion-icon>
+      </ion-button>
+    </div>
+  
+
+    <div style="padding: 1em;">
+      <ion-row>
+        <ion-col size="9">
+          <h2 style="text-align: left;">Ultimos clientes vistos </h2>
+        </ion-col>
+        <ion-col size="3">
+          <h4 (click)="goToClients()" style="text-align: right;">Ver más</h4>
+        </ion-col>
+      </ion-row>
+
+      
+      <div>       
+              <div *ngIf="clientSee == null" style="padding: 1em;">
+                <h2>No hay clientes vistos recientemente</h2>
+                <p>Si no haz creado clientes puedes crear uno o ver el listado de tus clientes</p>
+                <ion-button color="dark">Crear cliente</ion-button>
+                <ion-button color="dark" fill="clear">Ver clientes</ion-button>
+              </div>
+        
+      </div>
+
+        <div *ngFor="let client of clientSee" (click)="goToClientsSee(client)">
+        <ion-row>
+          <ion-col  style="padding: 1em;" size="3">
+            <img style="border-radius: 50%;" src="https://api.dicebear.com/9.x/thumbs/svg?seed={{client.name}}" alt="">
+          </ion-col>
+          <ion-col size="9">
+            <h5>{{client.name}}</h5>
+          </ion-col>
+        </ion-row>
+      </div>
+
+    </div>
+
+
+  </div>
+</ion-content> -->
+
+<ion-content>
+
+  <ion-row style="padding: 1em;position: relative;">
+    <ion-col size="8">
+      <h2 (click)="goToSettings()">Bienvenido</h2>
+    </ion-col>
+    <ion-col size="4" (click)="goToNet()">
+      <h2 style="text-align: right;">${{ total | number }}</h2>
+    </ion-col>
+  </ion-row>
+  <div>
+
+    <ion-row>
+      <ion-col size="4">
+        <ion-card (click)="goToCalendar()"   style="padding:1em;width: 100%;" >
+          <i style="color:#226d0b" class="fa-solid fa-layer-group"></i>
+          <h5 >Calendario</h5>
+        </ion-card>
+      </ion-col>
+      
+            <ion-col size="4" (click)="goToCategories()">
+              <ion-card style="padding:1em;width: 100%;"  >
+                <i style="color:#00457C" class="fa-solid fa-id-card"></i>
+                <h5 >Categorias</h5>
+                
+              </ion-card>
+            </ion-col>
+     
+      <ion-col size="3" (click)="goToBanks()">
+        <ion-card style="padding:1em;width: 100%;"  >
+          <i style="color:#ffffff"  class="fa-solid fa-credit-card"></i>
+          <h5 >Banco</h5>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+ 
+ 
+    
+    <div style="padding: 1em;">
+      <ion-row >
+        <ion-col size="10">
+          <h2>Ultimos movimientos</h2>     
+        </ion-col>
+        <ion-col size="2">
+          <h4 style="text-align: right;">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          </h4>
+        </ion-col>
+      </ion-row>
+
+      <ion-chip color="success" (click)="filterMovements('income')">
+        Ingresos
+      </ion-chip>
+
+      <ion-chip color="danger" (click)="filterMovements('expense')">
+        Gastos
+      </ion-chip>
+
+      <ion-chip *ngIf="isFiltered" (click)="clearFilter()">
+      <i class="fa-solid fa-xmark"></i> &nbsp; Quitar filtro
+      </ion-chip>
+
+      <div *ngIf="movements.length > 0">
+  
+        <ion-row style="margin-top: 1.5em;" *ngFor="let mov of movements">
+
+          <ion-col size="8" (click)="goToMovement(mov)">
+            <div style="display: flex; align-items: center;padding-top: .5em;">
+              <div style="margin-right: 10px;">
+                <img style="border-radius: 50%; width: 50px; height: 50px;" src="https://api.dicebear.com/9.x/thumbs/svg?seed=ca"
+                  alt="">
+              </div>
+              <div>
+                <p style="margin: 0; font-weight: bold;" class="capital">{{mov.name}}</p>
+                <p style="margin: 0; font-size: 0.9em; color: gray;">{{mov.date  | date: 'dd/MM/yyyy HH:mm a'  }}</p>
+              </div>
+            </div>
+          </ion-col>
+  
+          <ion-col size="4" (click)="goToMovement(mov)">
+            <h2 style="color: seagreen;text-align: right;" *ngIf="mov.type == 'income'">${{ mov.amount | number }}</h2>
+            <h2 style="color: red;text-align: right;" *ngIf="mov.type == 'expense'">${{ mov.amount | number }}</h2>
+          </ion-col>
+
+          <ion-chip (click)="goToFilteredMovements(mov.method)">
+            <i *ngIf="mov.method == 'cash'" class="fa-solid fa-wallet"></i>
+            <i *ngIf="mov.method == 'bank'" class="fa-solid fa-building-columns"></i>
+            <i *ngIf="mov.method == 'goal'" class="fa-solid fa-bullseye"></i>
+            <i *ngIf="mov.method == 'debt'" class="fa-solid fa-handshake-simple"></i>
+            <i *ngIf="mov.method == 'paypal'" class="fa-brands fa-paypal"></i>
+
+            &nbsp; {{mov.method}}
+          </ion-chip>
+
+        </ion-row>
+      </div>
+
+      <div style="text-align: center;margin-top: 5em;" *ngIf="movements.length == 0">
+        <h2><i class="fa-regular fa-file-lines"></i></h2>
+        <h5 >No hay movimientos</h5>
+        <p>Agrega movimientos para que aparezcan aqui</p>
+      </div>
+
+      
+     </div>
+  </div>
+
+ 
+  
+</ion-content>
+
+ 
+<ion-fab  vertical="bottom" horizontal="end">
+  <ion-fab-button color="dark">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  
+  <ion-fab-list side="top">
+
+    <ion-fab-button (click)="addMovement('income')">
+      <ion-icon name="cash" color="success"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-button (click)="addMovement('expense')">
+      <ion-icon name="cash" color="danger"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-button (click)="openRecognition()">
+    <ion-icon name="mic-outline" color="dark"></ion-icon>
+    </ion-fab-button>
+
+  </ion-fab-list>
+</ion-fab>
+

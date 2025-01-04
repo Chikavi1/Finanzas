@@ -1,0 +1,32 @@
+<ion-content >
+  
+  <ion-row style="padding: 1em;margin-top: 3em;">
+    <ion-col size="11">
+      <h2>Tarjetas</h2>
+    </ion-col>
+    <ion-col size="1" (click)="showQR()">
+      <h2><ion-icon name="qr-code-outline"></ion-icon></h2>
+    </ion-col>
+  </ion-row>
+  
+
+
+  <ion-card *ngFor="let w of wallet"  (click)="goToBusiness()" [ngStyle]="{'background': w.background, 'color': w.foreground, 'padding': '1em'}" style="border-radius: 1em;">
+    <ion-row>
+      <ion-col size="3">
+        <img style="border-radius: 50%;" alt="Silhouette of mountains" [src]="w.image" />
+      </ion-col>
+      <ion-col>
+        <h2>{{w.title}}</h2>
+      </ion-col>
+    </ion-row>     
+  </ion-card>
+
+  <div style="padding: 1em;text-align: center;" *ngIf="wallet.length == 0">
+    <h2>Sin tarjetas</h2>
+    <p>No tienes tarjetas pero puedes decirle al negocio que escanee tu código QR para registrarte</p>
+    <ion-button expand="block" (click)="showQR()" color="dark">Mostrar mi codigo QR</ion-button>
+  </div>
+
+
+</ion-content>

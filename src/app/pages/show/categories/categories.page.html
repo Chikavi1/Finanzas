@@ -1,0 +1,25 @@
+ 
+
+<ion-content [fullscreen]="true">
+<div style="padding: 1em;">
+  <h2>Categorias</h2>
+
+  <ngx-emoji (click)="openEmojiPicker()" [emoji]="selectedEmoji" set="apple" [size]="40"></ngx-emoji>
+
+  <div *ngIf="showEmojiPicker" class="emoji-picker">
+    <emoji-mart [showPreview]="false" [i18n]="i18nEs" set="apple" (emojiSelect)="addEmoji($event)">
+    </emoji-mart>
+  </div>
+
+  <p>Ingreso </p>
+  <p> <i class="fa-solid fa-mobile"></i> Celular</p>
+  <p><i class="fa-solid fa-gas-pump"></i> Combustible</p>
+  <p><i class="fa-solid fa-shirt"></i> Ropa</p>
+
+</div>
+</ion-content>
+
+
+<ion-footer>
+  <ion-button color="danger" expand="block" (click)="goBack()">Cerrar</ion-button>
+</ion-footer>

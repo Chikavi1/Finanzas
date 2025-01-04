@@ -1,0 +1,36 @@
+ <ion-content [fullscreen]="true">
+    <div style="padding: 1em;">
+      <h2>Objetivos</h2>
+    
+      <ion-row  *ngFor="let goal of goals" (click)="goToGoal(goal)">
+        <ion-col size="9">
+          <h2 class="capital">{{goal.name}}</h2>
+          <p>{{goal.description}}</p>
+        </ion-col>
+        <ion-col size="3">
+          <h2 style="text-align: right;">$ {{goal.amount | number}}</h2>
+        </ion-col>
+      </ion-row>
+
+
+      <div style="text-align: center;margin-top: 5em;" *ngIf="goals.length == 0">
+        <h2>
+          <i class="fa-solid fa-bullseye"></i></h2>
+        <h5>No hay objetivos</h5>
+        <p>Si no haz creado objetivos puedes crear uno o ver el listado de tus objetivos</p>
+        <ion-button color="dark" (click)="addGoal()">Crear objetivo</ion-button>
+        <ion-button color="dark" fill="clear">Leer más</ion-button>
+      </div>
+    
+ 
+    
+    </div>
+    
+</ion-content>
+
+<ion-fab slot="fixed" horizontal="end" vertical="bottom" (click)="addGoal()">
+  <ion-fab-button color="dark">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Reconocimiento de Voz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Texto Reconocido:</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ recognizedText || 'No se ha detectado texto aún.' }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="primary" (click)="startListening()" [disabled]="isListening">
+    {{ isListening ? 'Escuchando...' : 'Iniciar Reconocimiento' }}
+  </ion-button>
+
+  <ion-button expand="block" color="danger" (click)="stopListening()" [disabled]="!isListening">
+    Detener
+  </ion-button>
+</ion-content>
+
+<ion-footer>
+ <ion-button color="danger" (click)="goBack()" expand="full">Cerrar</ion-button>
+</ion-footer>
