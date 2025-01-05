@@ -3,9 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { CardPage } from '../card/card.page';
 import { DebtPage } from '../debt/debt.page';
 import { GoalPage } from '../goal/goal.page';
-import { NativeAudio } from '@capacitor-community/native-audio';
-import { Capacitor } from '@capacitor/core';
-
+ 
 @Component({
   selector: 'app-index',
   templateUrl: './index.page.html',
@@ -28,8 +26,7 @@ export class IndexPage implements OnInit {
     this.getDebts();
     this.getGoals();
 
-    this.preloadAudio();
-  }
+   }
 
   playAudio() {
   const audio = document.getElementById('myAudio') as HTMLAudioElement;
@@ -37,36 +34,9 @@ export class IndexPage implements OnInit {
     console.error('Error al reproducir el audio:', error);
   });
 }
+   
+
   
-async preloadAudio() {
-  let assetPath = '';
-
-  if (Capacitor.getPlatform() === 'android') {
-    assetPath = 'assets/sounds/notification.mp3';
-  } else if (Capacitor.getPlatform() === 'ios') {
-    assetPath = 'sounds/notification.mp3';
-  } else if (Capacitor.getPlatform() === 'web') {
-    assetPath = 'assets/sounds/notification.mp3';
-  }
-
-  try {
-    await NativeAudio.preload({
-      assetId: 'click',
-      assetPath: assetPath,
-      audioChannelNum: 1,
-      isUrl: false,
-    });
-    console.log('Audio preloaded successfully');
-  } catch (error) {
-    console.error('Error preloading audio:', error);
-  }
-}
-
-  // async playAudio() {
-  //   await NativeAudio.play({
-  //     assetId: 'click',
-  //    })
-  // }
 
   async playAudioWithWebAPI() {
   const context = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -108,6 +78,8 @@ async preloadAudio() {
         type: this.type,
         category: 'pets'
     }
+
+    this.playAudioWithWebAPI();
 
   
     const movements = localStorage.getItem('movements') || '[]';
