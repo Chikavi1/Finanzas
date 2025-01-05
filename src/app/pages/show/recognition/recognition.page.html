@@ -14,11 +14,11 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-button expand="block" color="primary" (click)="startListening()" [disabled]="isListening">
-    {{ isListening ? 'Escuchando...' : 'Iniciar Reconocimiento' }}
+  <ion-button expand="block" color="primary" (click)="startRecognition()" [disabled]="recording">
+    {{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}
   </ion-button>
 
-  <ion-button expand="block" color="danger" (click)="stopListening()" [disabled]="!isListening">
+  <ion-button expand="block" color="danger" (click)="stopRecognition()" [disabled]="!recording">
     Detener
   </ion-button>
 </ion-content>
