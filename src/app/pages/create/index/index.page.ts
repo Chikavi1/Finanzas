@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { CardPage } from '../card/card.page';
 import { DebtPage } from '../debt/debt.page';
 import { GoalPage } from '../goal/goal.page';
+import { NativeAudio } from '@capacitor-community/native-audio';
 
 @Component({
   selector: 'app-index',
@@ -19,16 +20,34 @@ export class IndexPage implements OnInit {
   cards: any = [];
   debts: any = [];
   goals: any = [];
+  textDone;
 
   constructor(private modalCtrl: ModalController) { 
     this.getCards();
     this.getDebts();
     this.getGoals();
+
+    this.preloadAudio();
   }
-    textDone;
+  
+  async preloadAudio() {
+    await NativeAudio.preload({
+      assetId: 'click',
+      assetPath: 'assets/sounds/notification.mp3',
+      audioChannelNum: 1,
+      isUrl: false
+    })
+  }
+
+  async playAudio() {
+    await NativeAudio.play({
+      assetId: 'click',
+     })
+  }
+
+
   ngOnInit() {
   
-    
   this.textDone = (this.type == 'expense') ? 'Agregar Gasto' : 'Agregar Ingreso'
   }
 
@@ -54,7 +73,8 @@ export class IndexPage implements OnInit {
         type: this.type,
         category: 'pets'
     }
- 
+
+  
     const movements = localStorage.getItem('movements') || '[]';
     let movement = JSON.parse(movements);
     movement.push(newMovement);
@@ -65,6 +85,7 @@ export class IndexPage implements OnInit {
   }
 
   close() {
+    this.playAudio();
     this.modalCtrl.dismiss();
   }
 
