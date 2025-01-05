@@ -68,6 +68,18 @@ async preloadAudio() {
   //    })
   // }
 
+  async playAudioWithWebAPI() {
+  const context = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const response = await fetch('../../../../assets/sounds/notification.mp3');
+  const arrayBuffer = await response.arrayBuffer();
+  const audioBuffer = await context.decodeAudioData(arrayBuffer);
+
+  const source = context.createBufferSource();
+  source.buffer = audioBuffer;
+  source.connect(context.destination);
+  source.start(0);
+}
+
 
   ngOnInit() {
   
