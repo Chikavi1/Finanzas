@@ -4,6 +4,7 @@ import { CardPage } from '../card/card.page';
 import { DebtPage } from '../debt/debt.page';
 import { GoalPage } from '../goal/goal.page';
 import { NativeAudio } from '@capacitor-community/native-audio';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-index',
@@ -30,15 +31,29 @@ export class IndexPage implements OnInit {
     this.preloadAudio();
   }
   
-  async preloadAudio() {
+async preloadAudio() {
+  let assetPath = '';
+
+  if (Capacitor.getPlatform() === 'android') {
+    assetPath = 'assets/sounds/notification.mp3';
+  } else if (Capacitor.getPlatform() === 'ios') {
+    assetPath = 'sounds/notification.mp3';
+  } else if (Capacitor.getPlatform() === 'web') {
+    assetPath = 'assets/sounds/notification.mp3';
+  }
+
+  try {
     await NativeAudio.preload({
       assetId: 'click',
-      // assetPath: 'assets/sounds/notification.mp3',
-      assetPath: '../../../../../ios/App/App/sounds/notification.mp3',
+      assetPath: assetPath,
       audioChannelNum: 1,
-      isUrl: false
-    })
+      isUrl: false,
+    });
+    console.log('Audio preloaded successfully');
+  } catch (error) {
+    console.error('Error preloading audio:', error);
   }
+}
 
   async playAudio() {
     await NativeAudio.play({
