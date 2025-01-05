@@ -4,6 +4,7 @@ import { CardPage } from '../card/card.page';
 import { DebtPage } from '../debt/debt.page';
 import { GoalPage } from '../goal/goal.page';
 import { NativeAudio } from '@capacitor-community/native-audio';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-index',
@@ -31,10 +32,14 @@ export class IndexPage implements OnInit {
   }
   
   async preloadAudio() {
+    let path = "notification.mp3"
+    if (Capacitor.getPlatform() == 'ios') path = 'sounds' + path
+    else if (Capacitor.getPlatform() == 'android') path = 'assets' + path
+    
     await NativeAudio.preload({
       assetId: 'click',
       // assetPath: 'assets/sounds/notification.mp3',
-      assetPath: '../../../../../ios/App/App/sounds/notification.mp3',
+      assetPath: path,
       audioChannelNum: 1,
       isUrl: false
     })
