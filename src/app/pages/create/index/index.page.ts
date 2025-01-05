@@ -30,6 +30,13 @@ export class IndexPage implements OnInit {
 
     this.preloadAudio();
   }
+
+  playAudio() {
+  const audio = document.getElementById('myAudio') as HTMLAudioElement;
+  audio.play().catch((error) => {
+    console.error('Error al reproducir el audio:', error);
+  });
+}
   
 async preloadAudio() {
   let assetPath = '';
@@ -55,11 +62,11 @@ async preloadAudio() {
   }
 }
 
-  async playAudio() {
-    await NativeAudio.play({
-      assetId: 'click',
-     })
-  }
+  // async playAudio() {
+  //   await NativeAudio.play({
+  //     assetId: 'click',
+  //    })
+  // }
 
 
   ngOnInit() {
