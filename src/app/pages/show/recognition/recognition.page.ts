@@ -9,41 +9,41 @@ import { ModalController } from '@ionic/angular';
 })
 export class RecognitionPage {
   recognizedText: string = '';
-  isListening: boolean = false;
+  recording: boolean = false;
 
   constructor(private modalCtrl: ModalController) {}
 
-  async checkPermission() {
-    const permission = await SpeechRecognition.checkPermissions();
-    if(permission.speechRecognition !== 'granted') {
-      await SpeechRecognition.requestPermissions();
+
+
+
+  async startRecognition() {
+    const { available } = await SpeechRecognition.available();
+    
+    if (available) {
+
+      this.recording = true;
+    
+      SpeechRecognition.start({
+        popup: false,
+        partialResults: true,
+        language: 'es-ES',
+        
+      });
+
+
+      SpeechRecognition.addListener('partialResults', (data: any) => {
+        console.log('partial Results was fired', data.matches);
+        this.recognizedText = data.matches[0];
+      });
+
     }
   }
 
-  async startListening() {
-    this.isListening = true;
-    const options = {
-      language: 'es-ES', // Idioma para el reconocimiento
-      maxResults: 1, // Número máximo de resultados
-      prompt: 'Habla ahora...', // Mensaje en el diálogo (en Android)
-      partialResults: true, // Resultados parciales
-    };
-
-    await this.checkPermission();
-
-    SpeechRecognition.start(options).then((result) => {
-      this.recognizedText = result.matches[0];
-      this.isListening = false;
-    }).catch((error) => {
-      console.error('Error:', error);
-      this.isListening = false;
-    });
+  async stopRecognition() {
+    this.recording = false;
+    await SpeechRecognition.stop();
   }
 
-  stopListening() {
-    this.isListening = false;
-    SpeechRecognition.stop();
-  }
 
   goBack() {
     this.modalCtrl.dismiss();
