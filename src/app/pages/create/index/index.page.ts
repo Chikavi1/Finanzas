@@ -33,8 +33,8 @@ export class IndexPage implements OnInit {
   
   async preloadAudio() {
     let path = "notification.mp3"
-    if (Capacitor.getPlatform() == 'ios') path = 'sounds' + path
-    else if (Capacitor.getPlatform() == 'android') path = 'assets' + path
+    if (Capacitor.getPlatform() == 'ios') path = 'sounds/' + path
+    else if (Capacitor.getPlatform() == 'android') path = 'assets/' + path
     
     await NativeAudio.preload({
       assetId: 'click',
