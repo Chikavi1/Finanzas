@@ -34,7 +34,7 @@ export class IndexPage implements OnInit {
     await NativeAudio.preload({
       assetId: 'click',
       // assetPath: 'assets/sounds/notification.mp3',
-      assetPath: 'notification.mp3',
+      assetPath: '../../../../../ios/App/App/sounds/notification.mp3',
       audioChannelNum: 1,
       isUrl: false
     })
