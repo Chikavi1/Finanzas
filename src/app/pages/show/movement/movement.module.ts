@@ -7,10 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { MovementPageRoutingModule } from './movement-routing.module';
 
 import { MovementPage } from './movement.page';
+import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   imports: [
     CommonModule,
+    PickerComponent,
+    EmojiComponent,
     FormsModule,
     IonicModule,
     MovementPageRoutingModule

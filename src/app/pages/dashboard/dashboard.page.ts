@@ -55,7 +55,7 @@ export class DashboardPage implements OnInit {
   if (this.movements.length > 0) {
   
     this.movements.forEach(element => {
-      this.total +=  parseInt( element.amount );
+      this.total +=  parseFloat( element.amount );
     });
     this.movements.reverse();
   }
@@ -86,9 +86,8 @@ export class DashboardPage implements OnInit {
       modal.present();
 
       modal.onWillDismiss().then((result) => {
-        if (result.data) {
+        if(result.data) {
           this.getMovements();
-
         }
        });
       
@@ -141,6 +140,13 @@ export class DashboardPage implements OnInit {
     })
     .then(modal => {
       modal.present();
+
+      modal.onWillDismiss().then((result) => {
+        if(result.data) {
+          this.getMovements();
+        }
+      });
+      
     });
   }
 

@@ -7,11 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { IndexPageRoutingModule } from './index-routing.module';
 
 import { IndexPage } from './index.page';
+import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    PickerComponent,
+    EmojiComponent,
     IonicModule,
     IndexPageRoutingModule
   ],

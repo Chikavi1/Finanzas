@@ -1,0 +1,19 @@
+.category-row {
+    display: flex;
+    align-items: center;
+    /* Centra verticalmente los elementos */
+}
+
+.emoji-col {
+    display: flex;
+    justify-content: center;
+    /* Centra horizontalmente el emoji */
+    align-items: center;
+    /* Centra verticalmente el emoji */
+}
+
+.text-col {
+    display: flex;
+    align-items: center;
+    /* Centra verticalmente el texto */
+}

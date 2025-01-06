@@ -28,7 +28,7 @@ export class CardPage implements OnInit {
   create() {
     let data = {
       id: new Date().getTime().toString(),
-      name: this.name,
+      name: this.capitalizeFirstLetter(this.name),
       type: this.type,
       last4: this.last4,
       balance: this.balance,
@@ -48,6 +48,11 @@ export class CardPage implements OnInit {
   validateInput(event: any) {
     const inputValue = event.target.value;
     event.target.value = inputValue.replace(/[^0-9]/g, '');
+  }
+
+  capitalizeFirstLetter(str: string): string {
+    if (!str) return str;  
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
 }

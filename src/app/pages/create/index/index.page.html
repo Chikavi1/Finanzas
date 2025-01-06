@@ -1,8 +1,9 @@
  
 <ion-content [fullscreen]="true">
 <div style="padding: 1em;margin-top:3em">
-  <h2 (click)="toggleType()" *ngIf="type == 'income'"><i class="fa-solid fa-money-bill" style="color:green"></i> Ingresos</h2>
-  <h2 (click)="toggleType()" *ngIf="type == 'expense'"><i class="fa-solid fa-money-bill" style="color:red"></i> Gastos</h2>
+  <h2>Agregar movimiento</h2>
+  <!-- <h2 (click)="toggleType()" *ngIf="type == 'income'"><i class="fa-solid fa-money-bill" style="color:green"></i> Ingresos</h2> -->
+  <!-- <h2 (click)="toggleType()" *ngIf="type == 'expense'"><i class="fa-solid fa-money-bill" style="color:red"></i> Gastos</h2> -->
 
   <ion-input [(ngModel)]="name"  style="margin-top: 2em;" placeholder="Agrega una descripción para recordar este ingreso"></ion-input>
 
@@ -25,9 +26,10 @@
     <ion-chip color="success" (click)="addCard()"><ion-icon name="add"></ion-icon> &nbsp; Agregar</ion-chip>
     
     <div class="chip-container-horizontal" style="margin-top: 1em;">
-      <div  *ngFor="let card of cards">
-        <ion-chip>**** {{card.last4}}</ion-chip>
-      </div>
+        <ion-chip  *ngFor="let card of cards" 
+        (click)="selectCard(card)"
+        [ngClass]="cardSelected == card.id ? 'active' : ''"
+        > {{card.type}} **** {{card.last4}}</ion-chip>
     </div>
 
   </div>
@@ -37,8 +39,11 @@
 
     <ion-chip color="success" (click)="addDebt()"><ion-icon name="add"></ion-icon> &nbsp; Agregar</ion-chip>
 
-    <div class="chip-container-horizontal capital" style="margin-top: 1em;">
-      <ion-chip  *ngFor="let deb of debts"  >{{deb.name}}</ion-chip>
+    <div class="chip-container-horizontal capital" 
+     
+    style="margin-top: 1em;">
+      <ion-chip  *ngFor="let debt of debts"   (click)="selectDebt(debt)"
+      [ngClass]="debtSelected == debt.id ? 'active' : ''">{{debt.name}}</ion-chip>
     </div>
  
   </div>
@@ -47,8 +52,11 @@
     <p>Selecciona un objetivo:</p>
     <ion-chip color="success" (click)="addGoal()"><ion-icon name="add"></ion-icon> &nbsp; Agregar</ion-chip>
 
-    <div class="chip-container-horizontal" style="margin-top: 1em;" *ngFor="let goal of goals">
-      <ion-chip>{{goal.name}}</ion-chip>
+    <div class="chip-container-horizontal" style="margin-top: 1em;">
+      <ion-chip  
+      (click)="selectGoal(goal)"
+      [ngClass]="goalSelected == goal.id ? 'active' : ''"
+      *ngFor="let goal of goals">{{goal.name}}</ion-chip>
     </div>
   </div>
 
@@ -73,11 +81,16 @@
     </ion-modal>
   </ion-item>
 
-  <ion-item lines="none">
-    <ion-label position="fixed"><i class="fa-solid fa-layer-group"></i> Categoria</ion-label>
-    <ion-label  style="text-align: right;" (click)="setIsSelectedCategories()" >Efectivo</ion-label>
+  <ion-item style="margin-top: 3em;" lines="none">
+    <ion-label position="fixed"><i class="fa-solid fa-layer-group"></i> Categorias</ion-label>
+    <ion-label  style="text-align: right;" (click)="openCategorySelector()" >Editar</ion-label>
     <p>  </p>
   </ion-item>
+
+  <div *ngIf="categoriesSelected">
+    <ion-chip *ngFor="let category of categoriesSelected">
+      <ngx-emoji [emoji]="category.emoji" set="apple" [size]="20"></ngx-emoji> &nbsp;{{category.name}}</ion-chip>
+  </div>
 
 
   <ion-card style="padding: 1em;" *ngIf="IsSelectedCategories">
@@ -100,7 +113,7 @@
 
   <ion-card style="padding: 1em;">
     <h2> <i class="fa-solid fa-flask"></i> En Resumen</h2>
-    <p>Se saldo en la cuenta de credito</p>
+    <p>{{ textInfo}}</p>
   </ion-card>
  
   
@@ -117,8 +130,8 @@
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button [disabled]="!amount || !name" (click)="add()" expand="full" color="dark" shape="round" style="margin-top: 2.3em;"><ion-icon name="add"></ion-icon>
-        &nbsp; {{ textDone }} 
+      <ion-button [disabled]="!amount || !name" (click)="add()" expand="full" color="dark" shape="round" style="margin-top: 2.3em;">
+        <ion-icon name="add"></ion-icon> &nbsp; {{ textDone }} 
       </ion-button>
     </ion-col>
   </ion-row>

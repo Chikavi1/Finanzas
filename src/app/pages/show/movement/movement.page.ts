@@ -17,7 +17,47 @@ export class MovementPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.movement.card){
+      this.getCard();
+      console.log(this.card)
+    }
+    if(this.movement.debt){
+      this.getDebt();
+      console.log(this.debt)
+    }
+
+    if(this.movement.goal){
+      this.getGoal();
+      console.log(this.goal)
+    }
   }
+
+  card;
+  goal;
+  debt;
+
+  getCard() {
+    const card = localStorage.getItem('cards');
+    let items = JSON.parse(card);
+    this.card = items.filter(item => item.id == this.movement.card);
+    this.card = this.card[0]
+  }
+
+
+  getDebt() {
+    const debt = localStorage.getItem('debts');
+    let items = JSON.parse(debt);
+    this.debt = items.filter(item => item.id == this.movement.debt);
+    this.debt = this.debt[0]
+  }
+
+  getGoal() {
+    const goal = localStorage.getItem('goals');
+    let items = JSON.parse(goal);
+    this.goal = items.filter(item => item.id == this.movement.goal);
+    this.goal = this.goal[0]
+  }
+
 
    async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -85,7 +125,7 @@ export class MovementPage implements OnInit {
   }
 
   removeById(elementId) {
-  const NAME = 'recurrents';
+  const NAME = 'movements';
   const stored = localStorage.getItem(NAME);  
     if (stored){
       let items = JSON.parse(stored);

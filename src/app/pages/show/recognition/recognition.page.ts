@@ -39,6 +39,10 @@ export class RecognitionPage {
     }
   }
 
+  next() {
+    this.modalCtrl.dismiss(this.recognizedText);
+  }
+
   async stopRecognition() {
     this.recording = false;
     await SpeechRecognition.stop();

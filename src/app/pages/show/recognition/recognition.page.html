@@ -1,28 +1,31 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Reconocimiento de Voz</ion-title>
-  </ion-toolbar>
-</ion-header>
+ 
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Texto Reconocido:</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ recognizedText || 'No se ha detectado texto aún.' }}</p>
-    </ion-card-content>
-  </ion-card>
 
+  <ion-textarea style="margin: 3m 0em;" [(ngModel)]="recognizedText"></ion-textarea>
+  <ion-button *ngIf="recognizedText" expand="block" color="dark" (click)="next()">Siguiente</ion-button>
+<!-- 
   <ion-button expand="block" color="primary" (click)="startRecognition()" [disabled]="recording">
     {{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}
   </ion-button>
 
   <ion-button expand="block" color="danger" (click)="stopRecognition()" [disabled]="!recording">
     Detener
-  </ion-button>
+  </ion-button> -->
+
+
+  <div>
+    <div style="padding:3em;margin:0 auto;background-color: white;height: 8em;width: 8em; border-radius: 50%;">
+      <ion-icon name="microphone" style="font-size: 2em;" [color]="recording ? 'danger' : 'primary'"></ion-icon>
+    </div>
+  </div>
+  <p style="margin-top: 2em;text-align: center;">{{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}</p>
 </ion-content>
 
-<ion-footer>
- <ion-button color="danger" (click)="goBack()" expand="full">Cerrar</ion-button>
-</ion-footer>
+
+<ion-fab   vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button color="dark" (click)="goBack()">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+

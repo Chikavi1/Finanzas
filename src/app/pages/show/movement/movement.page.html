@@ -36,6 +36,27 @@
       {{movement.method}}
     </h2>
 
+    <div *ngIf="movement.card">
+      <p style="margin-top: 2em;">Tarjeta</p>
+      <h2>
+        {{card.name}} &#183;&#183;&#183;&#183;  {{card.last4}}
+      </h2>
+    </div>
+
+    <div *ngIf="movement.goal">
+      <p style="margin-top: 2em;">Objetivo</p>
+      <h2>
+        {{goal.name}}
+      </h2>
+    </div>
+
+    <div *ngIf="movement.debt">
+      <p style="margin-top: 2em;">Deuda</p>
+      <h2>
+        {{debt.name}}
+      </h2>
+    </div>
+
     <p  style="margin-top: 2em">Tipo de movimiento</p>
 
     <h2 *ngIf="movement.type == 'expense'"><i class="fa-solid fa-arrow-down"></i> Gasto</h2>
@@ -43,17 +64,12 @@
 
     <p style="margin-top: 2em;font-weight: bold;">Categorias</p>
 
-    <ion-chip  outline>
-      <ion-label>Ingresos</ion-label>
-    </ion-chip>
+    <div >
+      <ion-chip *ngFor="let category of movement.categories">
+        <ngx-emoji [emoji]="category.emoji" set="apple" [size]="20"></ngx-emoji> &nbsp;{{category.name}}
+      </ion-chip>
 
-    <ion-chip  outline>
-      <ion-label>Banco</ion-label>
-    </ion-chip>
-
-    <ion-chip  outline>
-      <ion-label>Debito</ion-label>
-    </ion-chip>
+    </div>
 
 
 

@@ -23,7 +23,7 @@ export class DebtPage implements OnInit {
   create() {
     let data = {
       id: new Date().getTime().toString(),
-      name: this.name,
+      name: this.capitalizeFirstLetter(this.name),
       amount: this.amount
     }
 
@@ -32,6 +32,11 @@ export class DebtPage implements OnInit {
     debt.push(data);
     localStorage.setItem('debts', JSON.stringify(debt));
     this.modalCtrl.dismiss(true);
+  }
+
+  capitalizeFirstLetter(str: string): string {
+    if (!str) return str;  
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
 }

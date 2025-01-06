@@ -18,6 +18,13 @@ export class GoalPage implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    const movements = localStorage.getItem('movements');  
+    if (movements) {
+      let items = JSON.parse(movements);
+      this.movements = items.filter(item => item.goal == this.goal.id);
+      console.log(this.movements)
+    }
   }
 
   closeModal() {

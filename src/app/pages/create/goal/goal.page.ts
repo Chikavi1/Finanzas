@@ -23,7 +23,7 @@ export class GoalPage implements OnInit {
   create() {
     let data = {
       id: new Date().getTime().toString(),
-      name: this.name,
+      name: this.capitalizeFirstLetter(this.name),
       amount: this.amount
     }
     const goals = localStorage.getItem('goals') || '[]';
@@ -41,6 +41,11 @@ export class GoalPage implements OnInit {
   selectedEmoji = 'santa';
   addEmoji(event: any) {
     
+  }
+
+  capitalizeFirstLetter(str: string): string {
+    if (!str) return str;  
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
 

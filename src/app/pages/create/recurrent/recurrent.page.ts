@@ -26,7 +26,7 @@ export class RecurrentPage implements OnInit {
     
     let data = {
       id: new Date().getTime().toString(),
-      name: this.name,
+      name: this.capitalizeFirstLetter(this.name),
       amount: this.amount,
       each: this.each,
       type: this.type
@@ -43,5 +43,10 @@ export class RecurrentPage implements OnInit {
   validateInput(event: any) {
     const inputValue = event.target.value;
     event.target.value = inputValue.replace(/[^0-9]/g, '');
+  }
+
+  capitalizeFirstLetter(str: string): string {
+    if (!str) return str;  
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 }
