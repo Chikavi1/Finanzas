@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OpenaiService {
 
-  private apiUrl = 'https://api.openai.com/v1/chat/completions';  
-  private apiKey = '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'; 
+  private apiUrl = environment.openIAUrl;  
+  private apiKey = environment.openIAKey; 
 
   constructor() {}
 

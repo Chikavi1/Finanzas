@@ -39,6 +39,7 @@
     "@techiediaries/ngx-qrcode": "^9.1.0",
     "angularx-qrcode": "^18.0.2",
     "apexcharts": "^4.3.0",
+    "axios": "^1.7.9",
     "chart.js": "^4.4.7",
     "ionicons": "^7.0.0",
     "ngx-apexcharts": "^0.7.0",
