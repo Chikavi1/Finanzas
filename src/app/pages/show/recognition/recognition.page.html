@@ -1,9 +1,60 @@
  
 
 <ion-content>
+  <div *ngIf="!results">
+    <ion-textarea style="margin: 3m 0em;" [(ngModel)]="recognizedText"></ion-textarea>
+    <ion-button *ngIf="recognizedText" expand="block" color="dark" (click)="next()">Siguiente</ion-button>
+      <div>
+        <div style="padding:3em;margin:0 auto;background-color: white;height: 8em;width: 8em; border-radius: 50%;">
+          <ion-icon name="microphone" style="font-size: 2em;" [color]="recording ? 'danger' : 'primary'"></ion-icon>
+        </div>
+      </div>
+      <p style="margin-top: 2em;text-align: center;">{{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}</p>
+  </div>
 
-  <ion-textarea style="margin: 3m 0em;" [(ngModel)]="recognizedText"></ion-textarea>
-  <ion-button *ngIf="recognizedText" expand="block" color="dark" (click)="next()">Siguiente</ion-button>
+
+  <div *ngIf="results">
+    <h2 style="padding: 1em;">Resultados</h2>
+
+    <ion-card *ngFor="let result of results" style="margin: 1em;padding:1em;">
+        <ion-row>
+          <ion-col size="8">
+            <h2>{{result.name}}</h2>
+            <p>{{ result.date | date }}</p>
+          </ion-col>
+          <ion-col size="4">
+            <h2 style="color: red;text-align: right;">${{ result.amount }}</h2>
+          </ion-col>
+        </ion-row>
+
+  
+        <p>Tipo:</p>
+        <p>{{ result.type }}</p>
+        <p>Metodo:</p>
+        <p>{{ result.method }}</p>
+        
+        <p>{{ result.card }}</p>
+        <p>{{ result.debt }}</p>
+        <p>{{ result.goal }}</p>
+       
+
+        <ion-chip *ngFor="let category of result?.category">
+            <ngx-emoji [emoji]="'santa'" set="apple" [size]="20"></ngx-emoji> &nbsp;{{category.name}}
+          </ion-chip>
+
+
+        <ion-row>
+          <ion-col size="6">
+            <ion-button expand="block" color="danger" (click)="updateItem()">Eliminar</ion-button>
+          </ion-col>
+          <ion-col size="6"> 
+            <ion-button expand="block" color="dark" (click)="deleteItem()">Editar</ion-button>
+          </ion-col>
+        </ion-row>
+    </ion-card>
+
+  </div>
+
 <!-- 
   <ion-button expand="block" color="primary" (click)="startRecognition()" [disabled]="recording">
     {{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}
@@ -14,18 +65,24 @@
   </ion-button> -->
 
 
-  <div>
-    <div style="padding:3em;margin:0 auto;background-color: white;height: 8em;width: 8em; border-radius: 50%;">
-      <ion-icon name="microphone" style="font-size: 2em;" [color]="recording ? 'danger' : 'primary'"></ion-icon>
-    </div>
-  </div>
-  <p style="margin-top: 2em;text-align: center;">{{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}</p>
+
 </ion-content>
 
 
-<ion-fab   vertical="bottom" horizontal="end" slot="fixed">
+<ion-fab   vertical="bottom" horizontal="end" slot="fixed" *ngIf="!results">
   <ion-fab-button color="dark" (click)="goBack()">
     <ion-icon name="close"></ion-icon>
   </ion-fab-button>
 </ion-fab>
 
+<ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="results">
+  <ion-fab-button color="dark" (click)="goBack()">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="results">
+  <ion-fab-button color="success" (click)="goBack()">
+    <ion-icon name="arrow-forward"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

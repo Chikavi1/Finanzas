@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 import { ModalController } from '@ionic/angular';
+import { OpenaiService } from 'src/app/services/openai.service';
 
 @Component({
   selector: 'app-recognition',
@@ -11,7 +12,12 @@ export class RecognitionPage {
   recognizedText: string = '';
   recording: boolean = false;
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(
+    private openIaService: OpenaiService,
+    private modalCtrl: ModalController) {
+    
+    }
+
 
 
 
@@ -30,7 +36,6 @@ export class RecognitionPage {
         
       });
 
-
       SpeechRecognition.addListener('partialResults', (data: any) => {
         console.log('partial Results was fired', data.matches);
         this.recognizedText = data.matches[0];
@@ -40,6 +45,7 @@ export class RecognitionPage {
   }
 
   next() {
+    this.openIaService.sendMessage(this.recognizedText);
     this.modalCtrl.dismiss(this.recognizedText);
   }
 
@@ -51,5 +57,98 @@ export class RecognitionPage {
 
   goBack() {
     this.modalCtrl.dismiss();
+  }
+
+
+
+  results = 
+  [
+  {
+    "name": "Compra en Amazon",
+    "amount": -189,
+    "type": "expense",
+    "date": "2023-10-03",
+    "method": "credit",
+    "category": [
+      {"id": 21, "name": "Online Shopping"}
+    ],
+    "card": "1235",
+    "debt": null,
+    "goal": null
+  },
+  {
+    "name": "Gasto en transporte",
+    "amount": -20,
+    "type": "expense",
+    "date": "2023-10-03",
+    "method": "cash",
+    "category": [
+      {"id": 8, "name": "Transport"}
+    ],
+    "card": null,
+    "debt": null,
+    "goal": null
+  },
+  {
+    "name": "Compra de Tacos",
+    "amount": -35,
+    "type": "expense",
+    "date": "2023-10-03",
+    "method": "cash",
+    "category": [
+      {"id": 3, "name": "Food"}
+    ],
+    "card": null,
+    "debt": null,
+    "goal": null
+  },
+  {
+    "name": "Ingreso por Propina",
+    "amount": 100,
+    "type": "income",
+    "date": "2023-10-03",
+    "method": "cash",
+    "category": [
+      {"id": 1, "name": "Income"}
+    ],
+    "card": null,
+    "debt": null,
+    "goal": null
+  },
+  {
+    "name": "Compra Cargador para Carro",
+    "amount": -1000,
+    "type": "expense",
+    "date": "2023-10-03",
+    "method": "credit",
+    "category": [
+      {"id": 12, "name": "Car Maintenance"}
+    ],
+    "card": null,
+    "debt": null,
+    "goal": null
+  },
+  {
+    "name": "Pago de Deuda a Lewis",
+    "amount": -1000,
+    "type": "debt",
+    "date": "2023-10-03",
+    "method": "credit",
+    "category": [
+      {"id": 20, "name": "Debts"}
+    ],
+    "card": "1235",
+    "debt": "deuda a Lewis",
+    "goal": null
+  }
+]
+
+  
+  updateItem() {
+    
+  }
+
+  deleteItem() {
+    
   }
 }
