@@ -145,10 +145,10 @@ export class RecognitionPage {
 
   
   updateItem() {
-    
+    console.log()
   }
 
-  deleteItem() {
-    
+  deleteItem(index: number) {
+   this.results = this.results.splice(index, 1);
   }
 }
