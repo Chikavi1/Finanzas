@@ -1,20 +1,18 @@
  
 <ion-content [fullscreen]="true">
-  <div style="margin-top: 2em;padding:1em;">
+  <div *ngIf="step == 2" style="margin-top: 2em;padding:1em;">
     <h2>Agregar movimiento recurrente</h2>
 
     <ion-input style="margin-top: 2em;margin-left: 1em;" [(ngModel)]="name" placeholder="Agrega una descripción ">
     </ion-input>
 
 
-    <ion-item lines="none" style="margin-top: 2em;">
+    <!-- <ion-item lines="none" style="margin-top: 2em;">
       <ion-select [(ngModel)]="each" label="Tipo" placeholder="Selecciona el tipo ">
         <ion-select-option value="income">Ingreso</ion-select-option>
         <ion-select-option value="expense">Gasto</ion-select-option>
-  
-    
       </ion-select>
-    </ion-item>
+    </ion-item> -->
 
 
     <ion-item lines="none" style="margin-top: 2em;">
@@ -22,7 +20,7 @@
       <ion-input  [(ngModel)]="amount" (ionInput)="validateInput($event)" placeholder="Ingresa cantidad" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
     </ion-item>
 
-    <ion-item lines="none">
+    <!-- <ion-item lines="none">
       <ion-select [(ngModel)]="each" label="Cada cuantas veces" placeholder="Selecciona el tipo ">
         <ion-select-option value="1">Cada dia</ion-select-option>
         <ion-select-option value="7">Cada semana</ion-select-option>
@@ -33,8 +31,37 @@
         <ion-select-option value="365">Cada año</ion-select-option>
 
       </ion-select>
+    </ion-item> -->
+
+
+  </div>
+
+  <div *ngIf="step == 1" style="margin-top: 2em;padding:1em;">
+    <h2>Agrega un movimiento recurrente</h2>
+
+    <ion-item lines="none" style="margin-top: 2em;">
+      <ion-select [(ngModel)]="type_recurrent" label="Selecciona el tipo" placeholder="Selecciona el tipo">
+        <ion-select-option value="daily">   Diario </ion-select-option>
+        <ion-select-option value="weekly">  Semanal </ion-select-option>
+        <ion-select-option value="fornite"> Quincenal </ion-select-option>
+        <ion-select-option value="monthly"> Mensual </ion-select-option>
+        <ion-select-option value="custom">  Personalizado </ion-select-option>
+      </ion-select>
     </ion-item>
 
+    <ion-item lines="none" style="margin-top: 2em;" *ngIf="type_recurrent == 'custom'"> 
+    
+      <ion-select [(ngModel)]="days_recurrent" label="Selecciona el dia" placeholder="Selecciona el dia">
+        <ion-select-option value="monday">  Lunes </ion-select-option>
+        <ion-select-option value="tuesday">  Martes </ion-select-option>
+        <ion-select-option value="wednesday"> Miercoles </ion-select-option>
+        <ion-select-option value="thursday"> Jueves </ion-select-option>
+        <ion-select-option value="friday"> Viernes </ion-select-option>
+        <ion-select-option value="saturday"> Sábado </ion-select-option>
+        <ion-select-option value="sunday"> Domingo </ion-select-option>
+
+      </ion-select>
+    </ion-item>
 
   </div>
   
@@ -43,16 +70,30 @@
 <ion-footer>
   <ion-row>
     <ion-col>
-      <ion-button expand="full" color="danger" shape="round" style="margin-top: 2.3em;" (click)="close()">
+
+      <ion-button *ngIf="step == 1" expand="full" color="danger" shape="round" style="margin-top: 2.3em;" (click)="close()">
         &nbsp;
         Cerrar</ion-button>
+
+      <ion-button *ngIf="step == 2" expand="full" color="danger" shape="round" style="margin-top: 2.3em;" (click)="back()">
+        &nbsp;
+        regresar</ion-button>
     </ion-col>
     <ion-col>
+
+
+      <ion-button *ngIf="step == 1"   expand="full" color="dark" shape="round"
+        style="margin-top: 2.3em;" (click)="add()"><ion-icon name="add"></ion-icon>
+        &nbsp;
+        Agregar</ion-button>
+
       <ion-button 
-      [disabled]="name.length < 2 || amount == 0  "
+      *ngIf="step == 2"
+      [disabled]="name.length < 2 || amount == 0"
       expand="full" color="dark" shape="round" style="margin-top: 2.3em;" (click) ="add()"><ion-icon name="add"></ion-icon>
         &nbsp;
         Agregar</ion-button>
+
     </ion-col>
   </ion-row>
 </ion-footer>

@@ -9,10 +9,18 @@ import { ModalController } from '@ionic/angular';
 export class RecurrentPage implements OnInit {
 
   name = '';
+  selectCategories = [];
+  method;
+  type = "expense";
+  card;
+  goal;
+  debt;
   amount;
-  each;
-  type;
+  type_recurrent = "weekly";
+  days_recurrent = ["monday"]
 
+  step = 1;
+ 
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
@@ -22,14 +30,30 @@ export class RecurrentPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+  back() {
+    this.step--;
+  }
+
+  next() {
+    this.step++;
+  }
+
   add() {
     
     let data = {
-      id: new Date().getTime().toString(),
+      id_recurrent: new Date().getTime().toString(),
       name: this.capitalizeFirstLetter(this.name),
+      category: this.selectCategories,
+      method: "cash",
+      type: this.type,
+      card: null,
+      goal: null,
+      debt: null,
       amount: this.amount,
-      each: this.each,
-      type: this.type
+      recurrence: {
+        type: this.type_recurrent,
+        days: this.days_recurrent
+      }
     }
 
 

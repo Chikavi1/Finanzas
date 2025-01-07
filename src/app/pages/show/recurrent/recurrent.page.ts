@@ -12,11 +12,51 @@ export class RecurrentPage implements OnInit {
   constructor(private modalCtrl: ModalController,
     private toastCtrl: ToastController,
     private alertController:AlertController,
-    private actionSheetCtrl: ActionSheetController) { }
+    private actionSheetCtrl: ActionSheetController) { 
+    
+    }
 
-  ngOnInit() {
+   ngOnInit() {
+    if(this.recurrent.card){
+      this.getCard();
+      console.log(this.card)
+    }
+    if(this.recurrent.debt){
+      this.getDebt();
+      console.log(this.debt)
+    }
+
+    if(this.recurrent.goal){
+      this.getGoal();
+      console.log(this.goal)
+    }
   }
 
+  card;
+  goal;
+  debt;
+
+  getCard() {
+    const card = localStorage.getItem('cards');
+    let items  = JSON.parse(card);
+    this.card  = items.filter(item => item.id == this.recurrent.card);
+    this.card  = this.card[0]
+  }
+
+
+  getDebt() {
+    const debt = localStorage.getItem('debts');
+    let items  = JSON.parse(debt);
+    this.debt  = items.filter(item => item.id == this.recurrent.debt);
+    this.debt  = this.debt[0]
+  }
+
+  getGoal() {
+    const goal = localStorage.getItem('goals');
+    let items  = JSON.parse(goal);
+    this.goal  = items.filter(item => item.id == this.recurrent.goal);
+    this.goal  = this.goal[0]
+  }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -24,7 +64,7 @@ export class RecurrentPage implements OnInit {
       mode: 'md',
       buttons: [
         {
-          text: 'Actualizar elemento',
+          text: 'Actualizar recurrente',
           data: {
             action: 'share',
           },
@@ -33,7 +73,7 @@ export class RecurrentPage implements OnInit {
           }
         },
         {
-          text: 'Eliminar elemento recurrente',
+          text: 'Eliminar recurrente',
           role: 'destructive',
           data: {
             action: 'delete',
