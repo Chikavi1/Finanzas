@@ -38,7 +38,9 @@ export class IndexPage implements OnInit {
   });
 }
    
-
+setType(t){
+  this.type = t;
+}
   
 
   async playAudioWithWebAPI() {
