@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { CardPage } from '../card/card.page';
 import { GoalPage } from '../goal/goal.page';
 import { DebtPage } from '../debt/debt.page';
+import { CategoriesPage } from '../../show/categories/categories.page';
 
 @Component({
   selector: 'app-recurrent',
@@ -26,6 +27,9 @@ export class RecurrentPage implements OnInit {
   categoriesSelected = [];
  
   constructor(private modalCtrl: ModalController) { 
+    this.getCards();
+    this.getDebts();
+    this.getGoals();
 
   }
 
@@ -95,6 +99,7 @@ export class RecurrentPage implements OnInit {
 
   setType(t) {
     this.type = t;
+    
   }
 
   setMethod(option: string) {
@@ -102,21 +107,30 @@ export class RecurrentPage implements OnInit {
    }
 
   selectCard(card) {
+    this.clearAllTypesSelected();
     this.card = card;
     this.cardSelected = card.id
     // this.generateTextInfo();
   }
 
   selectGoal(goal) {
+    this.clearAllTypesSelected();
     this.goal = goal;
     this.goalSelected = goal.id
     // this.generateTextInfo();
   }
 
   selectDebt(debt) {
+    this.clearAllTypesSelected();
     this.debt = this.debt
     this.debtSelected = debt.id
     // this.generateTextInfo();
+  }
+
+  clearAllTypesSelected() {
+    this.cardSelected = null;
+    this.goalSelected = null;
+    this.debtSelected = null;
   }
   
   cards = []
@@ -144,11 +158,11 @@ export class RecurrentPage implements OnInit {
       id_recurrent: new Date().getTime().toString(),
       name: this.capitalizeFirstLetter(this.name),
       category: this.categoriesSelected,
-      method: "cash",
+      method:  this.method,
       type: this.type,
-      card: this.card,
-      goal: this.goal,
-      debt: this.debt,
+      card: this.cardSelected,
+      goal: this.goalSelected,
+      debt: this.debtSelected,
       amount: this.amount,
       recurrence: {
         type: this.type_recurrent,
@@ -156,12 +170,14 @@ export class RecurrentPage implements OnInit {
       }
     }
 
+    console.log('data: ',data)
+    
 
-  const recurrents = localStorage.getItem('recurrents') || '[]';
-    let recurrent = JSON.parse(recurrents);
-    recurrent.push(data);
-    localStorage.setItem('recurrents', JSON.stringify(recurrent));
-    this.modalCtrl.dismiss(data);
+    // const recurrents = localStorage.getItem('recurrents') || '[]';
+    // let recurrent = JSON.parse(recurrents);
+    // recurrent.push(data);
+    // localStorage.setItem('recurrents', JSON.stringify(recurrent));
+    // this.modalCtrl.dismiss(data);
   }
 
   validateInput(event: any) {
@@ -174,8 +190,23 @@ export class RecurrentPage implements OnInit {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  openCategorySelector() {
+  async openCategorySelector() {
+
+      const modal = await this.modalCtrl.create({
+        component: CategoriesPage,
+        componentProps: {
+          categoriesSelected: this.categoriesSelected,
+        },
+      });
+  
+      await modal.present();
+  
+      const { data } = await modal.onWillDismiss();
+        if (data) {
+          console.log(data);
+          this.categoriesSelected = data.selectedCategories;
+          console.log(this.categoriesSelected)
+        }
     
   }
-
 }

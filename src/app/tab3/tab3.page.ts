@@ -19,13 +19,13 @@ export class Tab3Page {
     legend?: ApexLegend;
     plotOptions?: ApexPlotOptions;
   } = {
-    series: [55, 25, 20],
+    series: [35, 25, 20, 15],
     chart: {
       type: 'pie',  // Cambiar a tipo 'pie' para un gráfico sin agujero
       width: '100%',
     },
-    labels: ['Food', 'Transport', 'Entertainment'],
-    colors: ['#014ce6', '#9b9db2', '#bbbdcc'],
+    labels: ['&nbsp;Ingreso', '&nbsp;Gastos', '&nbsp;Deudas','&nbsp;Crecimiento Financiero'],
+    colors: ['#006b44', '#e04733ec', '#ffa500','#014ce6'],
     plotOptions: {
       pie: {
         donut: {
@@ -37,7 +37,7 @@ export class Tab3Page {
     legend: {
       position: 'bottom',
       labels: {
-        colors: ['#014ce6','#9b9db2', '#bbbdcc' ],
+        colors: ['#006b44', '#e04733ec', '#ffa500','#014ce6'],
         useSeriesColors: false,
       },
       fontSize: '16px',

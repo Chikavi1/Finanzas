@@ -38,7 +38,9 @@ export class IndexPage implements OnInit {
   });
 }
    
-setType(t){
+setType(t) {
+  this.method = null;
+  this.clearAllTypesSelected();
   this.type = t;
 }
   
@@ -69,25 +71,46 @@ setType(t){
   debt: any;
 
   selectCard(card) {
+    this.clearAllTypesSelected();
+
     this.card = card;
     this.cardSelected = card.id
     this.generateTextInfo();
   }
 
   selectGoal(goal) {
+    this.clearAllTypesSelected();
     this.goal = goal;
     this.goalSelected = goal.id
     this.generateTextInfo();
   }
 
   selectDebt(debt) {
+    this.clearAllTypesSelected();
     this.debt = this.debt
     this.debtSelected = debt.id
     this.generateTextInfo();
   }
 
+  disminuyeDeuda: boolean = true;  
+
+  updateDebtMode() {
+    console.log(this.disminuyeDeuda? "Aumentar deuda" : "Disminuir deuda");
+  }
+
+  growth_type;
+  setGrowthType(t) {
+    this.growth_type = t;
+  }
+
   ngOnInit() {
     this.textDone = (this.type == 'expense') ? 'Agregar Gasto' : 'Agregar Ingreso'
+  }
+
+  clearAllTypesSelected() {
+    this.cardSelected = null;
+    this.goalSelected = null;
+    this.debtSelected = null;
   }
 
 
@@ -96,6 +119,7 @@ setType(t){
   }
 
   setMethod(option: string) {
+    this.clearAllTypesSelected();
     this.method = option;
     this.generateTextInfo();
   }
@@ -117,18 +141,18 @@ setType(t){
     }
 
 
-    console.log(newMovement)
+    console.log('movimiento creado',newMovement)
 
-    this.playAudioWithWebAPI();
+    // this.playAudioWithWebAPI();
 
   
-    const movements = localStorage.getItem('movements') || '[]';
-    let movement = JSON.parse(movements);
-    movement.push(newMovement);
+    // const movements = localStorage.getItem('movements') || '[]';
+    // let movement = JSON.parse(movements);
+    // movement.push(newMovement);
 
-    localStorage.setItem('movements', JSON.stringify(movement));
+    // localStorage.setItem('movements', JSON.stringify(movement));
 
-    this.modalCtrl.dismiss(newMovement)
+    // this.modalCtrl.dismiss(newMovement)
   }
 
   close() {
@@ -193,10 +217,19 @@ setType(t){
     this.textDone = "Agregar movimiento"
   }
 
+  debitCards = [];
+  creditCards = [];
 
   getCards() {
     let cards = localStorage.getItem('cards') || '[]';
-    this.cards =  JSON.parse(cards).reverse()
+    this.cards = JSON.parse(cards).reverse()
+    this.cards.forEach(element => {
+        if(element.type == 'credit') {
+          this.creditCards.push(element)
+        } else {
+          this.debitCards.push(element)
+        }
+    });
   }
 
   getDebts() {

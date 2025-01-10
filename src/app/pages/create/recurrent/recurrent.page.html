@@ -1,5 +1,6 @@
  
 <ion-content [fullscreen]="true">
+
   <div *ngIf="step == 2" style="margin-top: 2em;padding:1em;">
     <h2>Agregar movimiento recurrente</h2>
  
@@ -8,33 +9,34 @@
 
   <p>Tipo:</p>
   <div style="margin-top: 1em;" class="chip-container-horizontal">
-    <ion-chip [ngClass]="type == 'income' ? 'active' : ''" (click)="setType('income')"><ion-icon
-        name="cash-outline"></ion-icon> &nbsp; Ingreso</ion-chip>
-    <ion-chip [ngClass]="type == 'expense' ? 'active' : ''" (click)="setType('expense')"><ion-icon
-        name="card-outline"></ion-icon> &nbsp; Gasto</ion-chip>
-    <ion-chip [ngClass]="type == 'debt' ? 'active' : ''" (click)="setType('debt')"><ion-icon
+    <ion-chip [ngClass]="type == 'income' ? 'active' : ''" (click)="setType('income')">
+      <ion-icon name="cash-outline"></ion-icon> &nbsp; Ingreso</ion-chip>
+    <ion-chip [ngClass]="type == 'expense' ? 'red-active' : ''" (click)="setType('expense')">
+      <ion-icon name="card-outline"></ion-icon> &nbsp; Gasto</ion-chip>
+    <ion-chip [ngClass]="type == 'debt' ? 'warning-active' : ''" (click)="setType('debt')"><ion-icon
         name="alert-circle-outline"></ion-icon> &nbsp; Deuda</ion-chip>
-    <ion-chip [ngClass]="type == 'goal' ? 'active' : ''" (click)="setType('goal')"><ion-icon
-        name="flag-outline"></ion-icon> &nbsp; Objetivo</ion-chip>
-    <ion-chip [ngClass]="type == 'investment' ? 'active' : ''" (click)="setType('investment')"><ion-icon
-        name="bar-chart"></ion-icon>&nbsp; Inversión</ion-chip>
+    <ion-chip [ngClass]="type == 'goal' ? 'active' : ''" (click)="setType('goal')">
+      <i class="fa-solid fa-bullseye"></i> &nbsp; Objetivo</ion-chip>
+    <ion-chip [ngClass]="type == 'investment' ? 'active' : ''" (click)="setType('investment')">
+    <i class="fa-solid fa-money-bill-trend-up"></i> &nbsp; Inversión</ion-chip>
     <ion-chip [ngClass]="type == 'saving' ? 'active' : ''" (click)="setType('saving')">
-      <ion-icon name="wallet"></ion-icon> &nbsp; Ahorro</ion-chip>
-
+      <i class="fa-solid fa-vault"></i> &nbsp; Ahorro</ion-chip>
   </div>
 
-  <p>Método de pago:</p>
-
-  <div style="margin-top: 1em;" class="chip-container-horizontal">
-    <ion-chip [ngClass]="method == 'cash' ? 'active' : ''" (click)="setMethod('cash')"><ion-icon
-        name="cash-outline"></ion-icon> &nbsp; Efectivo</ion-chip>
-    <ion-chip [ngClass]="method == 'bank' ? 'active' : ''" (click)="setMethod('bank')"><ion-icon
-        name="card-outline"></ion-icon> &nbsp; Banco</ion-chip>
-    <ion-chip [ngClass]="method == 'paypal' ? 'active' : ''" (click)="setMethod('paypal')"><ion-icon
-        name="logo-paypal"></ion-icon>&nbsp; PayPal</ion-chip>
+  <div *ngIf="type == 'expense' || type == 'income'">
+    <p>Método de pago:</p>
+    <div style="margin-top: 1em;" class="chip-container-horizontal">
+      <ion-chip [ngClass]="method == 'cash' ? 'method-active' : ''" (click)="setMethod('cash')">
+        <i class="fa-solid fa-coins"></i>
+        &nbsp; Efectivo</ion-chip>
+        <ion-chip [ngClass]="method == 'bank' ? 'method-active' : ''" (click)="setMethod('bank')"><ion-icon
+          name="card-outline"></ion-icon> &nbsp; Banco</ion-chip>
+          <ion-chip [ngClass]="method == 'paypal' ? 'method-active' : ''" (click)="setMethod('paypal')"><ion-icon
+            name="logo-paypal"></ion-icon>&nbsp; PayPal</ion-chip>
+          </div>
   </div>
 
-  <div *ngIf="method == 'bank'">
+  <div *ngIf="type == 'bank'">
     <p>Selecciona a cual tarjeta:</p>
     <ion-chip color="success" (click)="addCard()"><ion-icon name="add"></ion-icon> &nbsp; Agregar</ion-chip>
     <div class="chip-container-horizontal" style="margin-top: 1em;">
@@ -44,7 +46,7 @@
 
   </div>
 
-  <div *ngIf="method == 'debt'">
+  <div *ngIf="type == 'debt'">
     <p>Selecciona la deuda:</p>
     <ion-chip color="success" (click)="addDebt()"><ion-icon name="add"></ion-icon> &nbsp; Agregar</ion-chip>
     <div class="chip-container-horizontal capital" style="margin-top: 1em;">
@@ -53,7 +55,7 @@
     </div>
   </div>
 
-  <div *ngIf="method == 'goal'">
+  <div *ngIf="type == 'goal'">
     <p>Selecciona un objetivo:</p>
     <ion-chip color="success" (click)="addGoal()"><ion-icon name="add"></ion-icon> &nbsp; Agregar</ion-chip>
     <div class="chip-container-horizontal" style="margin-top: 1em;">
@@ -93,15 +95,7 @@
     <ion-chip *ngFor="let category of categoriesSelected">
       <ngx-emoji [emoji]="category.emoji" set="apple" [size]="20"></ngx-emoji> &nbsp;{{category.name}}</ion-chip>
   </div>
-
-
  
-
-  <!-- <ion-card style="padding: 1em;">
-    <h2> <i class="fa-solid fa-flask"></i> En Resumen</h2>
-    <p>{{ textInfo}}</p>
-  </ion-card> -->
-
   </div>
 
   <div *ngIf="step == 1" style="margin-top: 2em;padding:1em;">
