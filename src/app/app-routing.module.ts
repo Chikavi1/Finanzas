@@ -177,6 +177,10 @@ const routes: Routes = [
   {
     path: 'recognition',
     loadChildren: () => import('./pages/show/recognition/recognition.module').then( m => m.RecognitionPageModule)
+  },
+  {
+    path: 'card',
+    loadChildren: () => import('./pages/show/card/card.module').then( m => m.CardPageModule)
   }
 ];
 @NgModule({

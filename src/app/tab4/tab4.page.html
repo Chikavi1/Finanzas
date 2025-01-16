@@ -1,11 +1,20 @@
  <ion-content [fullscreen]="true">
     <div style="padding: 1em;margin-top:3em">
-      <h2>Objetivos</h2>
+      <h2>Crecimiento Financiero </h2>
+
+      <ion-chip> <i class="fa-solid fa-vault"></i> &nbsp; Ahorro </ion-chip>
+      <ion-chip> <i class="fa-solid fa-bullseye"></i> &nbsp; Objetivo </ion-chip>
+      <ion-chip> <i class="fa-solid fa-money-bill-trend-up"></i> &nbsp; Inversión </ion-chip>
     
       <ion-row  *ngFor="let goal of goals" (click)="goToGoal(goal)">
         <ion-col size="9">
           <h2 class="capital">{{goal.name}}</h2>
           <p>{{goal.description}}</p>
+          <ion-chip>
+            <ion-label *ngIf="goal.type == 'saving'">Ahorro</ion-label>
+            <ion-label *ngIf="goal.type == 'goal'">Objetivo</ion-label>
+            <ion-label *ngIf="goal.type == 'investment'">Inversión</ion-label>
+          </ion-chip>
         </ion-col>
         <ion-col size="3">
           <h2 style="text-align: right;">$ {{goal.amount | number}}</h2>
@@ -30,7 +39,7 @@
 
 <ion-fab slot="fixed" horizontal="end" vertical="bottom" (click)="addGoal()">
   <ion-fab-button color="dark">
-    <ion-icon name="add"></ion-icon>
+    <i class="fa-solid fa-plus"></i>
   </ion-fab-button>
 </ion-fab>
 

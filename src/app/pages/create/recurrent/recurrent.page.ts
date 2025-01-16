@@ -25,6 +25,7 @@ export class RecurrentPage implements OnInit {
   step = 1;
 
   categoriesSelected = [];
+  data;
  
   constructor(private modalCtrl: ModalController) { 
     this.getCards();
@@ -79,7 +80,19 @@ export class RecurrentPage implements OnInit {
     }
 
   ngOnInit() {
-  }
+    if (this.data) {
+      this.name = this.data.name;
+      this.method = this.data.method;
+      this.type = this.data.type;
+      this.card = this.data.card;
+      this.goal = this.data.goal;
+      this.debt = this.data.debt;
+      this.amount = this.data.amount;
+      this.type_recurrent = this.data.recurrence.type;
+      this.days_recurrent = this.data.recurrence.days;
+      this.categoriesSelected = this.data.categories;
+    }
+    }
 
   close() {
     this.modalCtrl.dismiss();
@@ -180,6 +193,30 @@ export class RecurrentPage implements OnInit {
     // this.modalCtrl.dismiss(data);
   }
 
+  update() {
+   const recurrents = localStorage.getItem('recurrents') || '[]';
+   let recurrent = JSON.parse(recurrents);
+
+   const element = recurrent.find((el: any) => el.id === this.data.id);
+
+   if (element) {
+    element.name = this.name;
+    element.method = this.method;
+    element.type = this.type;
+    element.card = this.card;
+    element.goal = this.goal;
+    element.debt = this.debt;
+    element.amount = this.amount;
+    element.recurrence.type = this.type_recurrent;
+    element.recurrence.days = this.days_recurrent;
+    element.categories = this.categoriesSelected;
+
+     localStorage.setItem('recurrents', JSON.stringify(recurrent));
+  }
+
+    this.modalCtrl.dismiss(true);
+  }
+  
   validateInput(event: any) {
     const inputValue = event.target.value;
     event.target.value = inputValue.replace(/[^0-9]/g, '');

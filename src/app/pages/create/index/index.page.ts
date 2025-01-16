@@ -38,10 +38,13 @@ export class IndexPage implements OnInit {
   });
 }
    
-setType(t) {
-  this.method = null;
-  this.clearAllTypesSelected();
-  this.type = t;
+  setType(t) {
+  
+    this.categoriesSelected = [];
+
+    this.method = null;
+    this.clearAllTypesSelected();
+    this.type = t;
 }
   
 
@@ -69,27 +72,32 @@ setType(t) {
   card: any;
   goal: any;
   debt: any;
+  description;
+  growth_type = 'saving';
+
+  step = 1;
+
+  next() {
+    this.generateTextInfo();
+    this.step++;
+  }
 
   selectCard(card) {
-    this.clearAllTypesSelected();
-
+    this.card = null
     this.card = card;
     this.cardSelected = card.id
-    this.generateTextInfo();
   }
 
   selectGoal(goal) {
-    this.clearAllTypesSelected();
+    this.goal = null;
     this.goal = goal;
     this.goalSelected = goal.id
-    this.generateTextInfo();
   }
 
   selectDebt(debt) {
-    this.clearAllTypesSelected();
-    this.debt = this.debt
+    this.debt = null;
+    this.debt = debt
     this.debtSelected = debt.id
-    this.generateTextInfo();
   }
 
   disminuyeDeuda: boolean = true;  
@@ -98,7 +106,7 @@ setType(t) {
     console.log(this.disminuyeDeuda? "Aumentar deuda" : "Disminuir deuda");
   }
 
-  growth_type;
+  
   setGrowthType(t) {
     this.growth_type = t;
   }
@@ -119,9 +127,8 @@ setType(t) {
   }
 
   setMethod(option: string) {
-    this.clearAllTypesSelected();
+    this.method = null;
     this.method = option;
-    this.generateTextInfo();
   }
 
   add() {
@@ -131,6 +138,7 @@ setType(t) {
         id: new Date().getTime().toString(),
         name: this.capitalizeFirstLetter(this.name),
         method: this.method,
+        description: this.description,
         amount: amount,
         date: this.selectedDateTime || new Date(),
         type: this.type,
@@ -144,19 +152,23 @@ setType(t) {
     console.log('movimiento creado',newMovement)
 
     // this.playAudioWithWebAPI();
-
   
-    // const movements = localStorage.getItem('movements') || '[]';
-    // let movement = JSON.parse(movements);
-    // movement.push(newMovement);
+    const movements = localStorage.getItem('movements') || '[]';
+    let movement = JSON.parse(movements);
+    movement.push(newMovement);
 
-    // localStorage.setItem('movements', JSON.stringify(movement));
+    localStorage.setItem('movements', JSON.stringify(movement));
 
-    // this.modalCtrl.dismiss(newMovement)
+    this.modalCtrl.dismiss(newMovement)
   }
 
   close() {
      this.modalCtrl.dismiss();
+  }
+
+  showDescription = false;
+  addDescription() {
+    this.showDescription = !this.showDescription;
   }
 
   addCard() {
@@ -207,9 +219,7 @@ setType(t) {
   validateInput(event: any) {
     const inputValue = event.target.value;
     event.target.value = inputValue.replace(/[^0-9]/g, '');
-    
-    this.generateTextInfo();
-  }
+    }
 
   toggleType() {
     // this.type = (this.type == 'expense') ? 'income' : 'expense';
@@ -261,35 +271,57 @@ setType(t) {
     }
   
   textInfo;
-  
-  generateTextInfo() {
-    
-    if (this.method == 'expense') {
-      this.textInfo = "Gastaste $"+this.amount
-    }
 
-    if (this.method == 'income') {
-      this.textInfo = "Ganaste $"+this.amount
-    }
-
-    if (this.method == 'debt') {
-      this.textInfo = "Pagaste $"+this.amount+" a "+ this.debt.name
-    }
-
-    if (this.method == 'goal') {
-      this.textInfo = "Pagaste $"+this.amount+" a "+ this.goal.name
-    }
-
-    if (this.method == 'bank') {
-      
-      if(this.card.type == 'credit') {
-        this.textInfo = "Pagaste $" + this.amount + " de tu tarjeta de credito " + this.card.name+ " **** " + this.card.last4
-      } else {
-        this.textInfo = "Obtuviste $" + this.amount + " de tu tarjeta de debito " + this.card.name+ " **** " + this.card.last4     
-      }
-    }
-
+  back() {
+    this.step--;
   }
+  
+ methodTextGenerate(method, data) {
+  switch (method) {
+    case 'cash':
+      return 'Efectivo';
+
+    case 'debit':
+      return `tu Tarjeta de débito ${data.name} ****${data.last4}`;
+
+    case 'credit':
+      return `tu Tarjeta de crédito ${data.name} ****${data.last4}`;
+
+    case 'paypal':
+      return 'PayPal';
+
+    default:
+      return 'un método desconocido';
+  }
+}
+
+
+  generateTextInfo() {
+  if (this.type === 'expense') {
+    this.textInfo = `Gastaste $${this.amount} en ${this.capitalizeFirstLetter(this.name)} pagando con ${this.methodTextGenerate(this.method, this.card)}.`;
+  }
+
+  if (this.type === 'income') {
+    this.textInfo = `Obtuviste $${this.amount} mediante ${this.methodTextGenerate(this.method, this.card)}.`;
+  }
+
+  if (this.type === 'debt') {
+    console.log(this.disminuyeDeuda, this.debt)
+    if (this.disminuyeDeuda) {
+      this.textInfo = `Disminuiste tu deuda con ${this.debt.name} pagando $${this.amount} usando ${this.methodTextGenerate(this.method, this.card)}.`;
+    } else {
+      this.textInfo = `Aumentaste tu deuda con ${this.debt.name} al obtener $${this.amount} mediante ${this.methodTextGenerate(this.method, this.card)}.`;
+    }
+  }
+
+  if (this.type === 'goal') {
+    const action = this.growth_type === 'saving' || this.growth_type === 'investment' 
+      ? 'Ahorraste' 
+      : 'Destinaste';
+
+    this.textInfo = `${action} $${this.amount} a ${this.goal.name} usando ${this.methodTextGenerate(this.method, this.card)}.`;
+  }
+}
 
   capitalizeFirstLetter(str: string): string {
     if (!str) return str;  

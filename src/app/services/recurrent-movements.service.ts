@@ -20,49 +20,47 @@ export class RecurrentMovementsService {
     console.log('Movement registered:', movement);
   }
 
-  processRecurrences(initialMovements: any[]) {
-    const today = new Date();
-    const dayOfWeek = today.toLocaleString('en-US', { weekday: 'long' }).toLowerCase();  
-    const dayOfMonth = today.getDate();
+ processRecurrences(initialMovements: any[], dateString: string) {
+    const currentDate = new Date(dateString);
+    const dayOfWeek = currentDate.toLocaleString('en-US', { weekday: 'long' }).toLowerCase();
+    const dayOfMonth = currentDate.getDate();
 
     initialMovements.forEach(movement => {
-      const recurrence = movement.recurrence;
+        const recurrence = movement.recurrence;
 
-      switch (recurrence.type) {
-        case 'weekly':
-          if (recurrence.days.includes(dayOfWeek)) {
-            this.registerMovement(movement);
-          }
-          break;
+        switch (recurrence.type) {
+            case 'weekly':
+                if (recurrence.days.includes(dayOfWeek)) {
+                    this.registerMovement({ ...movement, processedDate: dateString });
+                }
+                break;
 
-        case 'monthly':
-          if (recurrence.dayOfMonth === dayOfMonth) {
-            this.registerMovement(movement);
-          }
-          break;
+            case 'monthly':
+                if (recurrence.dayOfMonth === dayOfMonth) {
+                    this.registerMovement({ ...movement, processedDate: dateString });
+                }
+                break;
 
-        case 'biweekly':
-          const startDate = new Date(recurrence.startDate);
-          const diffInDays = Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-          if (diffInDays % 14 === 0) {
-            
-            this.registerMovement(movement);
-            startDate.setDate(startDate.getDate() + 14);
-            recurrence.startDate = startDate.toISOString();
-          }
-          break;
+            case 'biweekly':
+                const startDate = new Date(recurrence.startDate);
+                const diffInDays = Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+                if (diffInDays % 14 === 0) {
+                    this.registerMovement({ ...movement, processedDate: dateString });
+                }
+                break;
 
-        case 'custom':
-          if (recurrence.days.includes(dayOfWeek)) {
-            this.registerMovement(movement);
-          }
-          break;
+            case 'custom':
+                if (recurrence.days.includes(dayOfWeek)) {
+                    this.registerMovement({ ...movement, processedDate: dateString });
+                }
+                break;
 
-        default:
-          console.warn('Unsupported recurrence type:', recurrence.type);
-      }
+            default:
+                console.warn('Unsupported recurrence type:', recurrence.type);
+        }
     });
-  }
+}
+
 
   getMovements(): any[] {
     return this.movements;

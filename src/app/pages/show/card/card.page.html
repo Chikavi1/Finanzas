@@ -1,0 +1,53 @@
+ 
+<ion-content [fullscreen]="true">
+
+  <div style="padding:1em">
+
+    <ion-row>
+      <ion-col size="2">
+      </ion-col>
+    
+      <ion-col offset="8" size="2" style="text-align: right;" (click)="presentActionSheet()">
+        <h2><i class="fa-solid fa-ellipsis"></i></h2>
+      </ion-col>
+    </ion-row>
+    
+
+    <p style="margin-top: 2em;">Tarjeta </p>
+    <h2>{{card.name}}</h2>
+    
+    <p style="margin-top: 2em;">4 digitos</p>
+    <h2>{{card.last4}}</h2>
+    
+    <p style="margin-top: 2em;">Tipo</p>
+    <h2>{{ card.type }}</h2>
+    
+    <div *ngIf="card.type == 'credit'">
+      <p style="margin-top: 2em;">Limite</p>
+      <h2>${{card.limit | number }}</h2>
+    </div>
+    
+    <div *ngIf="card.type == 'debit'">
+      <p style="margin-top: 2em;">Saldo</p>
+      <h2>${{card.balance | number }}</h2>
+    </div>
+    
+    <p style="margin-top: 2em;">Color de la tarjeta</p>
+
+<input type="color" value="{{card.color}}" disabled id="favcolor" name="favcolor"
+  style="margin-top: 1em; width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer;">
+
+    <p> <i class="fa-solid fa-circle-info"></i>  El color del texto es blanco, evita poner fondo muy claro, para que no se pierda la información</p>
+    
+    <p style="margin-top: 2em;">Fecha del corte</p>
+    <h2>{{card.cutDate | date}}</h2>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <ion-button
+  expand="block"
+  (click)="goBack()"
+  color="danger"
+  >Cerrar</ion-button>
+</ion-footer>

@@ -32,21 +32,24 @@
     </ion-card>
   
     <ion-card style="padding: 1em;">
-      <h4>Proceso</h4>
-      <h1>{{checkProcess()}}</h1>
-      <ion-progress-bar color="success" [value]="process"></ion-progress-bar> <ion-progress-bar
-        type="determinate"></ion-progress-bar>
+      <h4>Progreso</h4>
+      <h1>{{progress | number:'1.2-2'}} %</h1>
+       <ion-progress-bar color="success" [value]="progress*0.01"></ion-progress-bar> 
+ 
     </ion-card>
   
+ 
     <ion-card style="padding: 1em;">
       <h4>Transacciones</h4>
   
       <div style="text-align: center;">
+
         <div *ngIf="movements.length == 0">
           <h2><i class="fa-regular fa-file-lines"></i></h2>
           <p>No hay Transacciones</p>
           <p>Recuerda ir agregando</p>
         </div>
+
       </div>
 
       <ion-row *ngIf="movements.length > 0">

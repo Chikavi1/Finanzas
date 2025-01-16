@@ -33,6 +33,11 @@ export class Tab5Page implements OnInit {
   goToDebt(debt) {
     this.modalController.create({ component: show, cssClass: 'my-custom-class', componentProps: { debt: debt } }).then( modal => {
       modal.present();
+      modal.onWillDismiss().then((result) => {
+        if(result.data) {
+          this.getDebts()
+        }
+      })
     })
   }
 

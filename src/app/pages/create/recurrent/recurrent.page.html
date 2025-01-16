@@ -38,7 +38,7 @@
 
   <div *ngIf="type == 'bank'">
     <p>Selecciona a cual tarjeta:</p>
-    <ion-chip color="success" (click)="addCard()"><ion-icon name="add"></ion-icon> &nbsp; Agregar</ion-chip>
+    <ion-chip color="success" (click)="addCard()"><i class="fa-solid fa-plus"></i> &nbsp; Agregar</ion-chip>
     <div class="chip-container-horizontal" style="margin-top: 1em;">
       <ion-chip *ngFor="let card of cards" (click)="selectCard(card)"
         [ngClass]="cardSelected == card.id ? 'active' : ''"> {{card.type}} **** {{card.last4}}</ion-chip>
@@ -48,7 +48,7 @@
 
   <div *ngIf="type == 'debt'">
     <p>Selecciona la deuda:</p>
-    <ion-chip color="success" (click)="addDebt()"><ion-icon name="add"></ion-icon> &nbsp; Agregar</ion-chip>
+    <ion-chip color="success" (click)="addDebt()"><i class="fa-solid fa-plus"></i> &nbsp; Agregar</ion-chip>
     <div class="chip-container-horizontal capital" style="margin-top: 1em;">
       <ion-chip *ngFor="let debt of debts" (click)="selectDebt(debt)"
         [ngClass]="debtSelected == debt.id ? 'active' : ''">{{debt.name}}</ion-chip>
@@ -57,7 +57,7 @@
 
   <div *ngIf="type == 'goal'">
     <p>Selecciona un objetivo:</p>
-    <ion-chip color="success" (click)="addGoal()"><ion-icon name="add"></ion-icon> &nbsp; Agregar</ion-chip>
+    <ion-chip color="success" (click)="addGoal()"><i class="fa-solid fa-plus"></i> &nbsp; Agregar</ion-chip>
     <div class="chip-container-horizontal" style="margin-top: 1em;">
       <ion-chip (click)="selectGoal(goal)" [ngClass]="goalSelected == goal.id ? 'active' : ''"
         *ngFor="let goal of goals">{{goal.name}}</ion-chip>
@@ -131,8 +131,8 @@
 
 <ion-footer>
   <ion-row>
-    <ion-col>
-
+  
+    <ion-col size="6">
       <ion-button *ngIf="step == 1" expand="full" color="danger" shape="round" style="margin-top: 2.3em;" (click)="close()">
         &nbsp;
         Cerrar</ion-button>
@@ -141,7 +141,8 @@
         &nbsp;
         regresar</ion-button>
     </ion-col>
-    <ion-col>
+
+    <ion-col size="6">
 
 
       <ion-button *ngIf="step == 1"   expand="full" color="dark" shape="round"
@@ -152,13 +153,24 @@
           </ion-button>
 
       <ion-button 
-      *ngIf="step == 2"
-      [disabled]="name.length < 2 || amount == 0"
-      (click)="add()"
-      expand="full" color="dark" shape="round" style="margin-top: 2.3em;" (click) ="add()"><ion-icon name="add"></ion-icon>
-        &nbsp;
-        Agregar</ion-button>
+        *ngIf="step == 2 && !data"
+        [disabled]="name.length < 2 || amount == 0"
+        (click)="add()"
+        expand="full" color="dark" shape="round" style="margin-top: 2.3em;" (click) ="add()"><i class="fa-solid fa-plus"></i>
+          &nbsp;
+          Agregar
+      </ion-button>
+
+      <ion-button
+        *ngIf="step == 2 && data"
+        [disabled]="name.length < 2 || amount == 0"
+        (click)="update()"
+        expand="full" color="dark" shape="round" style="margin-top: 2.3em;" (click) ="add()"><i class="fa-solid fa-plus"></i>
+          &nbsp;
+          Actualizar
+      </ion-button>
 
     </ion-col>
+  
   </ion-row>
 </ion-footer>

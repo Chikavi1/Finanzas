@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, AlertController, ModalController, ToastController } from '@ionic/angular';
+import { RecurrentPage as update } from '../../create/recurrent/recurrent.page';
 
-@Component({
+ @Component({
   selector: 'app-recurrent',
   templateUrl: './recurrent.page.html',
   styleUrls: ['./recurrent.page.scss'],
@@ -116,6 +117,7 @@ export class RecurrentPage implements OnInit {
           cssClass: 'danger-button',
           handler: () => {
             this.removeById(this.recurrent.id);
+            this.modalCtrl.dismiss(true);
           }
         }
       ]
@@ -138,7 +140,29 @@ export class RecurrentPage implements OnInit {
   }
  
   update() {
-    this.setToast('Elemento actualizado','success');
+    this.modalCtrl.create({
+      component: update,
+      componentProps: { data: this.recurrent },
+      cssClass: 'my-custom-class'
+    }).then(modal => {
+       modal.present();
+       modal.onWillDismiss().then((result) => {
+         if (result.data) {
+           
+           this.getCard();
+           this.getDebt();
+           this.getGoal();
+           this.setToast('Elemento actualizado', 'success');
+           
+ 
+            setTimeout(() => {
+              this.modalCtrl.dismiss(true);
+            },1000)
+
+         }
+       });
+     });
+
   }
 
   setToast(message,color) {

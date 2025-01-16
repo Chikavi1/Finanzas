@@ -27,20 +27,24 @@
       <p style="margin-top: 2em;">Nota de la deuda</p>
       <p>{{ debt.description }}</p>
     </div>
-
   </div>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Transacciones de la deuda</ion-card-title>
-    </ion-card-header>
+  <ion-card style="padding: 1em;">
+    <h4>Progreso</h4>
+    <h1>{{progress | number:'1.2-2'}} %</h1>
+     <ion-progress-bar color="success" [value]="progress*.01"></ion-progress-bar>
+  </ion-card>
 
-    <ion-card-content>
-      <h2>
-        <ion-icon name="cash"></ion-icon>
-          2500
-      </h2>
-    </ion-card-content>
+  <ion-card>
+    <h2>Transacciones de la deuda</h2>
+    
+    <ion-item *ngFor="let transaction of movements">
+      <ion-label class="capital">
+        {{ transaction.name }}
+      </ion-label>
+      <ion-label style="text-align: right;">${{ transaction.amount | number }}</ion-label>
+    </ion-item>
+    
   </ion-card>
 </ion-content>
 

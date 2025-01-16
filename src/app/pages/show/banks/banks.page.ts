@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { CardPage } from '../../create/card/card.page';
+import { CardPage as show } from '../card/card.page';
+import { CardPage as create } from '../../create/card/card.page';
 
 @Component({
   selector: 'app-banks',
@@ -9,7 +10,7 @@ import { CardPage } from '../../create/card/card.page';
 })
 export class BanksPage implements OnInit {
 
-  constructor(private modalCtrl:ModalController) { }
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.getCards();
@@ -32,7 +33,7 @@ export class BanksPage implements OnInit {
 
   isFiltered = false
 
-   clearFilter() {
+  clearFilter() {
     this.isFiltered = false;
     this.getCards();
   }
@@ -40,25 +41,44 @@ export class BanksPage implements OnInit {
 
   cards = [];
 
-  getCards() { 
+  getCards() {
     let cards = localStorage.getItem('cards') || '[]';
-    this.cards =  JSON.parse(cards).reverse()
+    this.cards = JSON.parse(cards).reverse()
   }
 
   
-   addCard() {
+  addCard() {
     this.modalCtrl.create({
-      component: CardPage,
+      component: create,
       cssClass: 'my-custom-class'
     })
-    .then(modal => {
-      modal.present();
-      modal.onWillDismiss().then((result) => {
+      .then(modal => {
+        modal.present();
+        modal.onWillDismiss().then((result) => {
           if (result.data) {
             this.getCards();
           }
-      });        
-    });
+        });
+      });
+  }
+
+
+  selectCard(card){
+   this.modalCtrl.create({
+     component: show,
+     componentProps: {
+       card
+     },
+      cssClass: 'my-custom-class'
+    })
+      .then(modal => {
+        modal.present();
+        modal.onWillDismiss().then((result) => {
+          if (result.data) {
+            this.getCards();
+          }
+        });
+      });
   }
 
 }

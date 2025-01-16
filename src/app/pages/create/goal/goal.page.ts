@@ -8,10 +8,14 @@ import { ModalController } from '@ionic/angular';
 })
 export class GoalPage implements OnInit {
 
-  
+  data;
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
+    if (this.data) {
+      this.name = this.data.name;
+      this.amount = this.data.amount;
+    }
   }
 
   close(){
@@ -48,5 +52,22 @@ export class GoalPage implements OnInit {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
+ 
+  update() {
+   const goals = localStorage.getItem('goals') || '[]';
+   let goal = JSON.parse(goals);
+
+   const element = goal.find((el: any) => el.id === this.data.id);
+
+   if (element) {
+     
+      element.name = this.name;
+      element.amount = this.amount;
+
+      localStorage.setItem('goals', JSON.stringify(goal));
+    }
+
+    this.modalCtrl.dismiss(true);
+  }
 
 }

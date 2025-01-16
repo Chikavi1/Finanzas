@@ -59,11 +59,21 @@
         Cerrar</ion-button>
     </ion-col>
     <ion-col>
+
       <ion-button
+      *ngIf="!data"
       [disabled]="name.length < 4 || amount == 0" (click)="create()"
-      expand="full" color="dark" shape="round" style="margin-top: 2.3em;"><ion-icon name="add"></ion-icon>
+      expand="full" color="dark" shape="round" style="margin-top: 2.3em;">
+        
+      <i class="fa-solid fa-plus"></i>
         &nbsp;
         Agregar</ion-button>
+
+        <ion-button 
+        *ngIf="data"
+        expand="full" color="dark" shape="round" style="margin-top: 2.3em;" (click)="update()">
+        <i class="fa-solid fa-pen"></i> &nbsp; Editar
+      </ion-button>
     </ion-col>
   </ion-row>
 </ion-footer>

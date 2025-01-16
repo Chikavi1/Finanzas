@@ -1,45 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, AlertController, ModalController, ToastController } from '@ionic/angular';
-import { GoalPage as createGoal } from '../../create/goal/goal.page';
-
+import { CardPage as create } from '../../create/card/card.page';
 
 @Component({
-  selector: 'app-goal',
-  templateUrl: './goal.page.html',
-  styleUrls: ['./goal.page.scss'],
+  selector: 'app-card',
+  templateUrl: './card.page.html',
+  styleUrls: ['./card.page.scss'],
 })
-export class GoalPage implements OnInit {
-
-  goal: any = {};
-  movements: any = [];
-  progress;
-  total = 0;
-  constructor(private modalController: ModalController,
-     private toastCtrl: ToastController,
-    private alertController:AlertController,
-    private actionSheetCtrl: ActionSheetController
-  ) { }
+export class CardPage implements OnInit {
+  card;
+  constructor(
+    private actionSheetCtrl: ActionSheetController,
+    private alertController: AlertController,
+    private toastCtrl: ToastController,
+    private modalCtrl: ModalController) { }
 
   ngOnInit() {
-
-    const movements = localStorage.getItem('movements');  
-    if (movements) {
-      let items = JSON.parse(movements);
-      this.movements = items.filter(item => item.goal == this.goal.id);
-      this.movements.forEach(element => {
-        this.total += element.amount
-      })
-    }
-
-    this.progress = ( this.total / this.goal.amount ) * 100
-  }
- 
-
-  closeModal() {
-    this.modalController.dismiss();
   }
 
- 
+  goBack() {
+    this.modalCtrl.dismiss();
+  }
+
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -81,6 +63,7 @@ export class GoalPage implements OnInit {
     await actionSheet.present();
   }
 
+
   async confirmDelete() {
     const alert = await this.alertController.create({
       header: 'Eliminar objetivo',
@@ -98,7 +81,7 @@ export class GoalPage implements OnInit {
           text: 'Eliminar',
           cssClass: 'danger-button',
           handler: () => {
-            this.removeById(this.goal.id);
+            this.removeById(this.card.id);
           }
         }
       ]
@@ -107,8 +90,9 @@ export class GoalPage implements OnInit {
     await alert.present();
   }
 
+
    removeById(elementId) {
-    const NAME = 'goal';
+    const NAME = 'cards';
     const stored = localStorage.getItem(NAME);  
       if (stored){
         let items = JSON.parse(stored);
@@ -116,40 +100,28 @@ export class GoalPage implements OnInit {
         localStorage.setItem(NAME, JSON.stringify(items));
         
         this.setToast('Se elimino objetivo', 'dark');
-        this.modalController.dismiss(true);
+        this.modalCtrl.dismiss(true);
       }
     }
- 
+    
+  
   update() {
-    this.modalController.create({
-      component: createGoal,
-      componentProps: { data: this.goal },
+    this.modalCtrl.create({
+      component: create,
+      componentProps: {
+        data: this.card
+      },
       cssClass: 'my-custom-class'
-    })
-    .then(modal => {
+    }).then(modal => {
       modal.present();
       modal.onWillDismiss().then((result) => {
         if (result.data) {
           this.setToast('Elemento actualizado','success');
-          this.getGoal();
-
-          setTimeout(() => {
-            this.modalController.dismiss(true);
-          },1000)
-
         }
-      })
-    });
+    })
+    })
+
   }
-
-  getGoal() {
-    const goal = localStorage.getItem('goals');
-    let items = JSON.parse(goal);
-    this.goal = items.filter(item => item.id == this.goal.id);
-    this.goal = this.goal[0]
-  }
-
-
 
   setToast(message,color) {
     this.toastCtrl.create({
@@ -160,5 +132,7 @@ export class GoalPage implements OnInit {
 
 
   }
+
+
 
 }

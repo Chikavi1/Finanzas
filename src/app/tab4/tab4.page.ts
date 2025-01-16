@@ -41,6 +41,13 @@ export class Tab4Page {
     })
     .then(modal => {
       modal.present();
+
+      modal.onWillDismiss().then((result) => {
+        if (result.data) {
+          this.getGoals();
+        }
+      })
+
     });
   }
 

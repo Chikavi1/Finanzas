@@ -16,9 +16,20 @@ export class CardPage implements OnInit {
   color;
   credit_spent = 0;
 
+  data;
+
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
+    if (this.data) {
+      this.name = this.data.name;
+      this.type = this.data.type;
+      this.last4 = this.data.last4;
+      this.balance = this.data.balance;
+      this.limit = this.data.limit;
+      this.color = this.data.color;
+      this.credit_spent = this.data.credit_spent;
+    }
   }
 
   close(){
@@ -44,6 +55,25 @@ export class CardPage implements OnInit {
     this.modalCtrl.dismiss(true);
   }
 
+
+  update() {
+
+    const cards = localStorage.getItem('cards') || '[]';
+    let card = JSON.parse(cards);
+    card.forEach(element => {
+      if (element.id == this.data.id) {
+        element.name = this.name;
+        element.type = this.type;
+        element.last4 = this.last4;
+        element.balance = this.balance;
+        element.limit = this.limit;
+        element.color = this.color;
+        element.credit_spent = this.credit_spent;
+      }
+    });
+    localStorage.setItem('cards', JSON.stringify(card));
+    this.modalCtrl.dismiss(true);
+  }
 
   validateInput(event: any) {
     const inputValue = event.target.value;

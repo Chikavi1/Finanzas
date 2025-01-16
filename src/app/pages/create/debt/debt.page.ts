@@ -10,10 +10,16 @@ export class DebtPage implements OnInit {
 
   name = '';
   amount = 0;
+  description;
 
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
+    if (this.data) {
+      this.name = this.data.name;
+      this.amount = this.data.amount;
+      this.description = this.data.description;
+    }
   }
 
   close(){
@@ -24,6 +30,7 @@ export class DebtPage implements OnInit {
     let data = {
       id: new Date().getTime().toString(),
       name: this.capitalizeFirstLetter(this.name),
+      description: this.description,
       amount: this.amount
     }
 
@@ -32,6 +39,22 @@ export class DebtPage implements OnInit {
     debt.push(data);
     localStorage.setItem('debts', JSON.stringify(debt));
     this.modalCtrl.dismiss(true);
+  }
+
+  data;
+  update() {
+    
+    const debts = localStorage.getItem('debts');
+    let items = JSON.parse(debts);
+    items.forEach(element => {
+      if (element.id == this.data.id) {
+        element.name = this.name;
+        element.amount = this.amount;
+      }
+    });
+    localStorage.setItem('debts', JSON.stringify(items));
+    this.modalCtrl.dismiss(true);
+
   }
 
   capitalizeFirstLetter(str: string): string {
