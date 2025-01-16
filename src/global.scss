@@ -117,3 +117,68 @@ body.dark {
     }
     /* Color para íconos y etiquetas */
 }
+
+.custom-input {
+    margin: 0.6em 0em;
+    /* Margen externo */
+    padding: 0.8em 0.6em;
+    /* Más espacio interno (padding) */
+    background-color: #2b2b2b;
+    /* Fondo oscuro */
+    border: 1px solid #d1d5db;
+    /* Borde */
+    color: #b7b9be;
+    /* Texto */
+    font-size: 0.875rem;
+    /* Tamaño de texto */
+    border-radius: 0.375rem;
+    /* Bordes redondeados */
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+        outline: none;
+        border-color: #3b82f6;
+        /* Color del borde al enfocar */
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        /* Efecto al enfocar */
+    }
+
+    &::placeholder {
+        color: #9ca3af;
+        /* Color del texto placeholder */
+        padding-left: 0.6em;
+        /* Opcional: Agrega padding solo al placeholder */
+    }
+}
+
+ion-input::part(native) {
+    padding: 0.8em 0.6em;
+    /* Agrega espacio interno */
+    border: none;
+    /* Asegúrate de que el borde lo controle el contenedor */
+    color: #b7b9be;
+    /* Texto */
+}
+
+ion-input.custom-input {
+    --padding-start: 0.6em;
+    /* Ajusta el padding izquierdo */
+    --padding-end: 0.6em;
+    /* Ajusta el padding derecho */
+    --padding-top: 0.8em;
+    /* Ajusta el padding superior */
+    --padding-bottom: 0.8em;
+    /* Ajusta el padding inferior */
+    background-color: #2b2b2b;
+    /* Fondo */
+    border: 1px solid #d1d5db;
+    /* Borde */
+    border-radius: 0.375rem;
+    /* Bordes redondeados */
+    font-size: 0.875rem;
+    /* Tamaño de texto */
+    color: #b7b9be;
+    /* Color del texto */
+}
