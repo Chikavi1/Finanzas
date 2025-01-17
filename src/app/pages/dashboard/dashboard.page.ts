@@ -184,7 +184,13 @@ export class DashboardPage implements OnInit {
       cssClass: 'my-custom-class'
     })
     .then(modal => {
-      modal.present();
+       modal.present();
+       modal.onWillDismiss().then((result) => {
+        if(result.data) {
+          this.getMovements();
+        }
+       });
+      
     });
   }
 }

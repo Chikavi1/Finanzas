@@ -1,54 +1,109 @@
  
 
 <ion-content>
-  <div *ngIf="!results">
-    <ion-textarea style="margin: 3m 0em;" [(ngModel)]="recognizedText"></ion-textarea>
-    <ion-button *ngIf="recognizedText" expand="block" color="dark" (click)="next()">Siguiente</ion-button>
-      <div>
-        <div style="padding:3em;margin:0 auto;background-color: white;height: 8em;width: 8em; border-radius: 50%;">
-          <ion-icon name="microphone" style="font-size: 2em;" [color]="recording ? 'danger' : 'primary'"></ion-icon>
-        </div>
+  <div *ngIf="results.length == 0">
+    <div style="margin-top: 6em;" (click)="startRecognition()">
+      <div style="padding:3em;margin:0 auto;background-color: white;height: 8em;width: 8em; border-radius: 50%;">
+        <ion-icon name="microphone" style="font-size: 2em;" [color]="recording ? 'danger' : 'primary'"></ion-icon>
       </div>
-      <p style="margin-top: 2em;text-align: center;">{{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}</p>
+    </div>
+    <p style="margin-top: 2em;text-align: center;">{{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}</p>
+   
+    <div style="padding: 1em;">
+      <ion-textarea style="margin: 3m 0em;"  auto-grow="true" [(ngModel)]="recognizedText"></ion-textarea>
+      <!-- <ion-button *ngIf="recognizedText.length > 10" expand="block" color="dark" (click)="next()">Siguiente</ion-button> -->
+    </div>
+
   </div>
 
 
-  <div *ngIf="results">
+  <div *ngIf="results.length > 0">
     <h2 style="padding: 1em;">Resultados</h2>
 
     <ion-card *ngFor="let result of results; let i = index" style="margin: 1em;padding:1em;">
         <ion-row>
           <ion-col size="8">
             <h2>{{result.name}}</h2>
-            <p>{{ result.date | date }}</p>
+            <p class="capital">{{ result.date | date:'fullDate' }}</p>
           </ion-col>
           <ion-col size="4">
-            <h2 style="color: red;text-align: right;">${{ result.amount }}</h2>
+            <h2 [ngStyle]="{
+                color: result.type === 'incomes' ? 'green' : result.type === 'expenses' ? 'red' : 'gray',
+                textAlign: 'right'
+              }">
+              ${{ result.type === 'expenses' ? result.amount * -1 : result.amount }}
+            </h2>
           </ion-col>
         </ion-row>
 
   
-        <p>Tipo:</p>
-        <p>{{ result.type }}</p>
-        <p>Metodo:</p>
-        <p>{{ result.method }}</p>
+        <h5>Tipo:</h5>
+
+        <!-- <ion-chip>
+          {{ result.type }}
+        </ion-chip>   -->
         
-        <p>{{ result.card }}</p>
-        <p>{{ result.debt }}</p>
-        <p>{{ result.goal }}</p>
+        
+        <ion-chip [ngClass]="'active'" *ngIf="result.type == 'incomes'">
+          <i class="fa-solid fa-dollar-sign"></i> &nbsp; Ingreso</ion-chip>
+        
+        <ion-chip [ngClass]="'red-active'" *ngIf="result.type == 'expenses'">
+          <i class="fa-solid fa-dollar-sign"></i> &nbsp; Gasto</ion-chip>
+        
+        <ion-chip [ngClass]="'warning-active'" *ngIf="result.type == 'debts'">
+          <i class="fa-solid fa-circle-exclamation"></i> &nbsp; Deuda</ion-chip>
+        
+        <ion-chip [ngClass]="'blue-active'" *ngIf="result.type == 'growth'">
+          <i class="fa-solid fa-rocket"></i> &nbsp; Crecimiento Financiero </ion-chip>
+
+        <h5>Método de pago</h5>
+
+        <ion-chip *ngIf="result.method == 'cash'">
+          <i class="fa-solid fa-coins"></i> &nbsp; Efectivo
+        </ion-chip>
+        
+        <ion-chip *ngIf="result.method == 'debit'">
+          <i class="fa-solid fa-credit-card"></i> &nbsp; Tarjeta de debito 
+        </ion-chip>
+        
+        <ion-chip *ngIf="result.method == 'credit'">
+          <i class="fa-solid fa-credit-card"></i> &nbsp; Tarjeta de Credito
+        </ion-chip>
+        
+        <ion-chip  *ngIf="result.method == 'paypal'">
+          <i class="fa-brands fa-paypal"></i> &nbsp; PayPal
+        </ion-chip>
+
+        <div *ngIf="result.card">
+          <p>Tarjeta:</p>
+          <p>{{ result.card }}</p>
+          <p style="color: #e9862f;" *ngIf="result.isWarning"><i class="fa-solid fa-triangle-exclamation" ></i> No se encontró la tarjeta, necesita seleccionarla manualmente.</p>
+        </div>
+
+        <div *ngIf="result.debt">
+          <p>Deuda:</p>
+          <p>{{ result.debt }}</p>
+          <p style="color: #e9862f;"  *ngIf="result.isWarning"><i class="fa-solid fa-triangle-exclamation" ></i> No se encontró la deuda, necesita seleccionarla manualmente.</p>
+        </div>
+        
+        <div *ngIf="result.goal">
+          <p>Meta:</p>
+          <p>{{ result.goal }}</p>
+          <p style="color: #e9862f;" *ngIf="result.isWarning"><i class="fa-solid fa-triangle-exclamation"  ></i>No se encontró la meta, necesita seleccionarla manualmente.</p>
+        </div>
        
 
-        <ion-chip *ngFor="let category of result?.category">
+        <!-- <ion-chip *ngFor="let category of result?.category">
             <ngx-emoji [emoji]="'santa'" set="apple" [size]="20"></ngx-emoji> &nbsp;{{category.name}}
-          </ion-chip>
+          </ion-chip> -->
 
 
-        <ion-row>
+        <ion-row style="margin-top: 2em;">
           <ion-col size="6">
-            <ion-button expand="block" color="danger" (click)="updateItem()">Eliminar</ion-button>
+            <ion-button expand="block" color="danger" (click)="deleteItem(i)">Eliminar</ion-button>
           </ion-col>
           <ion-col size="6"> 
-            <ion-button expand="block" color="dark" (click)="deleteItem(i)">Editar</ion-button>
+            <ion-button expand="block" color="dark" (click)="updateItem(result)">Editar</ion-button>
           </ion-col>
         </ion-row>
     </ion-card>
@@ -64,25 +119,38 @@
     Detener
   </ion-button> -->
 
+ 
+
+
+  <ng-container *ngIf="step == 1">
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="results">
+      <ion-fab-button color="danger" (click)="goBack()">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button [disabled]="recognizedText.length == 0" color="dark" (click)="next()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-container>
+
+ 
+
+  
+  <ng-container *ngIf="step == 2">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="results.length == 0">
+      <ion-fab-button color="danger" (click)="exit()">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+      <ion-fab-button [disabled]="results.length == 0 || itemsWarning" color="success" (click)="create()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-container>
 
 
 </ion-content>
 
-
-<ion-fab   vertical="bottom" horizontal="end" slot="fixed" *ngIf="!results">
-  <ion-fab-button color="dark" (click)="goBack()">
-    <ion-icon name="close"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-
-<ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="results">
-  <ion-fab-button color="dark" (click)="goBack()">
-    <ion-icon name="close"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-
-<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="results">
-  <ion-fab-button color="success" (click)="goBack()">
-    <ion-icon name="arrow-forward"></ion-icon>
-  </ion-fab-button>
-</ion-fab>

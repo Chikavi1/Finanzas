@@ -115,11 +115,11 @@
         </ion-col>
       </ion-row>
 
-      <ion-chip color="success" (click)="filterMovements('income')">
+      <ion-chip color="success" (click)="filterMovements('incomes')">
         Ingresos
       </ion-chip>
 
-      <ion-chip color="danger" (click)="filterMovements('expense')">
+      <ion-chip color="danger" (click)="filterMovements('expenses')">
         Gastos
       </ion-chip>
 
@@ -145,8 +145,8 @@
           </ion-col>
   
           <ion-col size="4" (click)="goToMovement(mov)">
-            <h2 style="color: seagreen;text-align: right;" *ngIf="mov.type == 'income'">${{ mov.amount | number }}</h2>
-            <h2 style="color: red;text-align: right;" *ngIf="mov.type == 'expense'">${{ mov.amount | number }}</h2>
+            <h2 style="color: seagreen;text-align: right;" *ngIf="mov.type == 'incomes'">${{ mov.amount | number }}</h2>
+            <h2 style="color: red;text-align: right;" *ngIf="mov.type == 'expenses'">${{ mov.amount | number }}</h2>
           </ion-col>
 
           <ion-chip (click)="goToFilteredMovements(mov.method)">

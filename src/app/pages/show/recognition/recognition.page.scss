@@ -1,0 +1,28 @@
+.active {
+    background-color: #006b44;
+    color: white;
+}
+
+.red-active {
+    background-color: #e04733ec;
+    color: white;
+}
+
+.blue-active {
+    background-color: #00256b;
+    color: white;
+}
+
+.method-active {
+    border: 3px solid #006b44;
+}
+
+.warning-active {
+    background-color: #ffa500;
+    color: white;
+}
+
+.chip-container-horizontal {
+    overflow-x: auto;
+    white-space: nowrap;
+}
