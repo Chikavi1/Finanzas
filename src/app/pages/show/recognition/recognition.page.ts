@@ -82,11 +82,11 @@ export class RecognitionPage {
       this.loading = false;
     }, 3000);
 
-    // this.openIaService.sendMessage(this.recognizedText).then((response: any) => {
-    //   console.log('Chat GPT response:', response);
-    //   console.log('response formatted:', response.choices[0].message.content);
-    //   this.results =  JSON.parse( response.choices[0].message.content );
-    // });
+    this.openIaService.sendMessage(this.recognizedText).then((response: any) => {
+      console.log('Chat GPT response:', response);
+      console.log('response formatted:', response.choices[0].message.content);
+      this.results =  JSON.parse( response.choices[0].message.content );
+    });
 
   }
 
@@ -216,20 +216,13 @@ export class RecognitionPage {
       this.recording = false;
      this.stopRecording();
     } else {
-      this.startRecording();
+      this.startRecognition();
        this.recording = true;
     }
   }
 
   
-  startRecording() {
-    this.recording = true;
-    SpeechRecognition.start({
-      popup: false,
-      partialResults: true,
-      language: 'es-ES',
-    });
-  }
+
 
   stopRecording() {
     SpeechRecognition.stop();

@@ -111,8 +111,25 @@ export class IndexPage implements OnInit {
     this.growth_type = t;
   }
 
+  data;
+  date;
+
   ngOnInit() {
-    this.textDone = (this.type == 'expense') ? 'Agregar Gasto' : 'Agregar Ingreso'
+    this.textDone = (this.type == 'expense') ? 'Agregar Gasto' : 'Agregar Ingreso';
+
+    console.log(this.data); 
+    if (this.data) {
+      this.name = this.data.name;
+      this.method = this.data.method;
+      this.description = this.data.description;
+      this.amount = this.data.amount;
+      this.date = this.data.date;
+      this.type = this.data.type;
+      this.cardSelected = this.data.card;
+      this.goalSelected = this.data.goal;
+      this.debtSelected = this.data.debt;
+      this.categoriesSelected = this.data.categories;
+    }
   }
 
   clearAllTypesSelected() {
@@ -130,6 +147,31 @@ export class IndexPage implements OnInit {
     this.method = null;
     this.method = option;
   }
+
+
+  update(){
+    const movements = localStorage.getItem('movements') || '[]';
+    let movement = JSON.parse(movements);
+    const element = movement.find((el: any) => el.id === this.data.id);
+ 
+    if (element) {
+       element.name = this.name;
+       element.method = this.method;
+       element.amount = this.amount;
+       element.type = this.type;
+       element.description = this.data.description;
+       element.amount = this.data.amount;
+       element.date = this.data.date;
+       element.type = this.data.type;
+       element.card = this.data.card;
+       element.goal = this.data.goal;
+       element.debt = this.data.debt;
+       element.categories = this.data.categories;
+
+       localStorage.setItem('movements', JSON.stringify(element));
+     }
+     this.modalCtrl.dismiss(true);
+   }
 
   add() {
     let amount = parseFloat((this.type == 'expense' || this.type == 'debt' || this.type == 'goal') ? this.amount * -1 : this.amount);

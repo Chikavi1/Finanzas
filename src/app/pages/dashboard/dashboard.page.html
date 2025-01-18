@@ -115,17 +115,28 @@
         </ion-col>
       </ion-row>
 
-      <ion-chip color="success" (click)="filterMovements('incomes')">
-        Ingresos
-      </ion-chip>
+      <div class="chip-container-horizontal" style="margin-top: 1em;">
+        <ion-chip color="success" (click)="filterMovements('income')">
+          Ingresos
+        </ion-chip>
+        
+        <ion-chip color="danger" (click)="filterMovements('expense')">
+          Gastos
+        </ion-chip>
+        
+        <ion-chip color="warning" (click)="filterMovements('debt')">
+          Deuda
+        </ion-chip>
+      
+        <ion-chip color="primary" (click)="filterMovements('growth')">
+          Crecimiento
+        </ion-chip>
 
-      <ion-chip color="danger" (click)="filterMovements('expenses')">
-        Gastos
-      </ion-chip>
-
-      <ion-chip *ngIf="isFiltered" (click)="clearFilter()">
-      <i class="fa-solid fa-xmark"></i> &nbsp; Quitar filtro
-      </ion-chip>
+        <ion-chip *ngIf="isFiltered" (click)="clearFilter()">
+          <i class="fa-solid fa-xmark"></i> &nbsp; Quitar filtro
+        </ion-chip>
+        
+      </div>
 
       <div *ngIf="movements.length > 0">
   

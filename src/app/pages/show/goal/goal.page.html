@@ -33,7 +33,8 @@
   
     <ion-card style="padding: 1em;">
       <h4>Progreso</h4>
-      <h1>{{progress | number:'1.2-2'}} %</h1>
+      <h1>{{ progress | number:'1.2-2'}} %</h1>
+        <p>{{ progress }}</p>
        <ion-progress-bar color="success" [value]="progress*0.01"></ion-progress-bar> 
  
     </ion-card>
@@ -52,15 +53,17 @@
 
       </div>
 
-      <ion-row *ngIf="movements.length > 0">
-        <ion-col size="9">
-          <h2>{{movements[0].name}}</h2>
-          <p>{{movements[0].date | date}}</p>
-        </ion-col>
-        <ion-col size="3">
-          <p>{{movements[1].amount | number}}</p>
-        </ion-col>
-      </ion-row>
+      <div *ngIf="movements.length > 0">
+        <ion-row  *ngFor="let movement of movements">
+          <ion-col size="9">
+            <h2>{{movement.name}}</h2>
+            <p>{{movement.date | date}}</p>
+          </ion-col>
+          <ion-col size="3">
+            <p style="text-align: right;color: green;">{{movement.amount | number}}</p>
+          </ion-col>
+        </ion-row>
+      </div>
 
     </ion-card>
   

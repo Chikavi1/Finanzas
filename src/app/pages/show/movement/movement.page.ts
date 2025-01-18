@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, AlertController, ModalController, ToastController } from '@ionic/angular';
+import { IndexPage } from '../../create/index/index.page';
 
 @Component({
   selector: 'app-movement',
@@ -139,7 +140,24 @@ export class MovementPage implements OnInit {
  
  
   update() {
-    this.setToast('Elemento actualizado','success');
+
+    this.modalCtrl.create({
+      component: IndexPage,
+      componentProps: { data: this.movement },
+      cssClass: 'my-custom-class'
+    }).then(modal => {
+       modal.present();
+       modal.onWillDismiss().then((result) => {
+         if(result.data) {
+
+          setTimeout(()=>{
+            this.modalCtrl.dismiss(true);
+          },1000)
+          this.setToast('Elemento actualizado','success');
+         }
+       });
+     });
+
   }
 
   setToast(message,color) {

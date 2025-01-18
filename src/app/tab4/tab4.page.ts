@@ -11,12 +11,41 @@ import { GoalPage as createGoal } from '../pages/create/goal/goal.page';
 })
 export class Tab4Page {
   notifications: any[] = [];
-  
+  goals: any = [];
+
   constructor(private modalController: ModalController) { 
     this.getGoals();
   }
- 
-  goals: any = [];
+
+  filteredGoals(goal){
+
+  }
+
+  isFiltered = false;
+
+  clearFilter() {
+    this.isFiltered = false;
+    this.getGoals();
+  }
+  
+  filterMovements(type) {
+    this.isFiltered = true
+
+    this.goals = JSON.parse(localStorage.getItem('goals')) || '[]';
+    this.goals.reverse();
+
+    if (type == 'savings') {
+      this.goals = this.goals.filter(movement => movement.type == 'savings');
+    } else if (type == 'goals') {
+      this.goals = this.goals.filter(movement => movement.type == 'goals');
+    } else if (type == 'investments') {
+      this.goals = this.goals.filter(movement => movement.type == 'investments');
+    }
+
+  }
+
+
+
 
   getGoals() {
     let goals = localStorage.getItem('goals') || '[]';

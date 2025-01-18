@@ -15,10 +15,10 @@
     <h2 class="capital">{{ debt.name }}</h2>
 
     <p style="margin-top: 2em;">Monto de la deuda</p>
-    <h2 style="color:red;">$ {{ debt.amount | number }}</h2>
+    <h2 style="color:red;">$ {{ debt.amount*-1 | number }}</h2>
 
     <p>Total pagado</p>
-    <h2 style="color:green;">$ {{ total_paid | number }}</h2>
+    <h2 style="color:green;">$ {{ total_paid*-1 | number }}</h2>
 
     <p style="margin-top: 2em;">Fecha de la deuda</p>
     <h2>{{ debt.date | date }}</h2>
@@ -42,7 +42,7 @@
       <ion-label class="capital">
         {{ transaction.name }}
       </ion-label>
-      <ion-label style="text-align: right;">${{ transaction.amount | number }}</ion-label>
+      <ion-label style="text-align: right;color:green">${{ transaction.amount*-1 | number }}</ion-label>
     </ion-item>
     
   </ion-card>

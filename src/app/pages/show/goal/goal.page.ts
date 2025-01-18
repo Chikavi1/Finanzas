@@ -12,7 +12,7 @@ export class GoalPage implements OnInit {
 
   goal: any = {};
   movements: any = [];
-  progress;
+  progress = 0;
   total = 0;
   constructor(private modalController: ModalController,
      private toastCtrl: ToastController,
@@ -29,9 +29,12 @@ export class GoalPage implements OnInit {
       this.movements.forEach(element => {
         this.total += element.amount
       })
+      this.progress = ( this.total / this.goal.amount ) * 100
+      console.log(this.progress, 'progress')
+
     }
 
-    this.progress = ( this.total / this.goal.amount ) * 100
+
   }
  
 
@@ -108,7 +111,7 @@ export class GoalPage implements OnInit {
   }
 
    removeById(elementId) {
-    const NAME = 'goal';
+    const NAME = 'goals';
     const stored = localStorage.getItem(NAME);  
       if (stored){
         let items = JSON.parse(stored);

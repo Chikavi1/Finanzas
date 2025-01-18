@@ -3,9 +3,9 @@
 <ion-content [fullscreen]="true">
 
   <div style="padding: 1em;margin-top: 2.4em;">
-    <h2>Agregar Objetivo</h2>
+    <h2>Agregar Objetivo de crecimiento</h2>
 
-    <div
+    <!-- <div
       style="background-color: green; width: 4em; height: 4em; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
       <ngx-emoji (click)="openEmojiPicker()" [emoji]="selectedEmoji" set="apple" [size]="40"></ngx-emoji>
     </div>
@@ -13,36 +13,59 @@
     <div *ngIf="showEmojiPicker" class="emoji-picker">
       <emoji-mart [showPreview]="false"   set="apple" (emojiSelect)="addEmoji($event)">
       </emoji-mart>
-    </div>
+    </div> -->
   
-    <ion-input style="margin-top: 2em;margin-left: 1em;" [(ngModel)]="name" placeholder="Agrega una descripción para recordar este objetivo">
+    <ion-input class="custom-input" style="margin-top:3em;"    [(ngModel)]="name" placeholder="Agrega una descripción para recordar este objetivo">
     </ion-input>
+
+    <p>Selecciona un tipo:</p>
+    <div style="margin-top: 1em;" class="chip-container-horizontal">
+      <ion-chip [ngClass]="type == 'saving' ? 'active' : ''" (click)="setType('savings')">
+        <i class="fa-solid fa-vault"></i> &nbsp; Ahorro</ion-chip>
+  
+      <ion-chip [ngClass]="type == 'goal' ? 'active' : ''" (click)="setType('goals')">
+        <i class="fa-solid fa-bullseye"></i>  &nbsp; Objetivo</ion-chip>
+  
+      <ion-chip [ngClass]="type == 'investment' ? 'active' : ''" (click)="setType('investments')">
+        <i class="fa-solid fa-money-bill-trend-up"></i> &nbsp; Inversion</ion-chip>
+ 
+
+    </div>
   
     <ion-item lines="none" style="margin-top: 1em;">
       <ion-label position="fixed"><i class="fa-solid fa-dollar-sign"></i> Monto</ion-label>
       <ion-input [(ngModel)]="amount" placeholder="Ingresa cantidad" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
     </ion-item>
   
-    <ion-item lines="none">
-      <ion-label position="fixed"><i class="fa-solid fa-layer-group"></i> Categoria</ion-label>
-      <ion-input placeholder="Ingresa cantidad" type="tel" style="margin-left: auto;text-align: right;"></ion-input>
+    <ion-item style="margin-top: 3em;" lines="none">
+      <ion-label position="fixed"><i class="fa-solid fa-layer-group"></i> Categorias</ion-label>
+      <ion-label  style="text-align: right;" (click)="openCategorySelector()" >Editar</ion-label>
     </ion-item>
+
+      <div *ngIf="categoriesSelected">
+        <ion-chip *ngFor="let category of categoriesSelected">
+          <ngx-emoji [emoji]="category.emoji" set="apple" [size]="20">
+          </ngx-emoji> &nbsp;{{category.name}}
+        </ion-chip>
+      </div>
   
-    <ion-chip style="margin-top: 2em;"><i class="fa-solid fa-gears"></i> &nbsp; Personalizar</ion-chip>
+    <ion-chip (click)="setCustom()" style="margin-top: 2em;"><i class="fa-solid fa-gears"></i> &nbsp; Personalizar</ion-chip>
   
-    <ion-card>
-      <p>Pagar por mensualidades</p>
-      60
-
-      checkbox // Agregar un "gasto" recurrente para cumplir mi objetivo
-
-    </ion-card>
-
-    <ion-card style="text-align: center;">
-      <p>Cumplirias</p>
-      <h2>Tu objetivo el</h2>
-      <h1>23 de marzo del 2027</h1>
-    </ion-card>
+    <div *ngIf="custom_items">
+      <ion-card>
+        <p>Pagar por mensualidades</p>
+        60
+  
+        checkbox // Agregar un "gasto" recurrente para cumplir mi objetivo
+  
+      </ion-card>
+  
+      <ion-card style="text-align: center;">
+        <p>Cumplirias</p>
+        <h2>Tu objetivo el</h2>
+        <h1>23 de marzo del 2027</h1>
+      </ion-card>
+    </div>
   
  
   </div>

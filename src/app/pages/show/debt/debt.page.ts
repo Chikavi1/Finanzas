@@ -13,8 +13,8 @@ export class DebtPage implements OnInit {
   total_paid = 0;
   movements;
   
-  total;
-  progress;
+  total = 0;
+  progress = 0;
 
   constructor(private modalCtrl: ModalController,
     private toastCtrl: ToastController,
@@ -25,8 +25,8 @@ export class DebtPage implements OnInit {
   }
 
  ngOnInit() {
-
-    const movements = localStorage.getItem('movements');  
+     const movements = localStorage.getItem('movements');
+    console.log('movs',movements) 
     if (movements) {
       let items = JSON.parse(movements);
       this.movements = items.filter(item => item.debt == this.debt.id);
@@ -36,7 +36,7 @@ export class DebtPage implements OnInit {
       })
 
       this.progress = -1*(this.total_paid / this.debt.amount) * 100
-      
+      console.log('progreso:', this.progress)
       console.log(this.movements)
     }
  }
@@ -160,8 +160,8 @@ export class DebtPage implements OnInit {
       duration: 2000,
       color
     }).then(toast => toast.present());
-
-
   }
+
+
 
 }

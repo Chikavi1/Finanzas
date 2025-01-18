@@ -70,6 +70,10 @@ export class DashboardPage implements OnInit {
       this.movements = this.movements.filter(movement => movement.type == 'expense');
     } else if (type == 'income') {
       this.movements = this.movements.filter(movement => movement.type == 'income');
+    } else if (type == 'debt') {
+      this.movements = this.movements.filter(movement => movement.type == 'debt');
+    } else if (type == 'growth') {
+      this.movements = this.movements.filter(movement => movement.type == 'growth');
     }
 
   }

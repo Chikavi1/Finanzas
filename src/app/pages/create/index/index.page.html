@@ -160,7 +160,6 @@
   <ion-item style="margin-top: 3em;" lines="none" *ngIf="type == 'expense'">
     <ion-label position="fixed"><i class="fa-solid fa-layer-group"></i> Categorias</ion-label>
     <ion-label  style="text-align: right;" (click)="openCategorySelector()" >Editar</ion-label>
-    <p>  </p>
   </ion-item>
 
   <div *ngIf="categoriesSelected">
@@ -170,18 +169,17 @@
 
   </div>
 
-  <div *ngIf="step == 2">
-
-    <ion-chip color="primary" (click)="addDescription()">
-      <i class="fa-solid fa-plus"></i> &nbsp; Agregar descripción
-    </ion-chip>
-  
+  <div *ngIf="step == 2"> 
   
     <div *ngIf="showDescription">
       <ion-textarea rows="8" class="custom-input" [(ngModel)]="description" placeholder="Agrega una descripción  para recordar este movimiento">
       </ion-textarea>
       <small>0/350</small>
     </div>
+
+    <ion-chip color="primary" (click)="addDescription()">
+      <i class="fa-solid fa-plus"></i> &nbsp; Agregar descripción
+    </ion-chip>
   
     <ion-card style="padding: 1em;">
       <h2> <i class="fa-solid fa-brain"></i> En Resumen</h2>
