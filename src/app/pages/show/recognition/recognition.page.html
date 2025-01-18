@@ -1,13 +1,21 @@
  
 
 <ion-content>
-  <div *ngIf="results.length == 0">
-    <div style="margin-top: 6em;" (click)="startRecognition()">
-      <div style="padding:3em;margin:0 auto;background-color: white;height: 8em;width: 8em; border-radius: 50%;">
+  <div *ngIf="step == 1">
+    <div style="margin-top: 6em;" (click)="setRecording()">
+
+      <div *ngIf="!recording" style="padding:3em;margin:0 auto;background-color: white;height: 8em;width: 8em; border-radius: 50%;">
         <ion-icon name="microphone" style="font-size: 2em;" [color]="recording ? 'danger' : 'primary'"></ion-icon>
       </div>
-    </div>
-    <p style="margin-top: 2em;text-align: center;">{{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}</p>
+
+      <div *ngIf="recording" style="padding:3em;margin:0 auto;background-color: rgb(76, 168, 14);height: 8em;width: 8em; border-radius: 50%;">
+        <ion-icon name="microphone" style="font-size: 2em;" [color]="recording ? 'danger' : 'primary'"></ion-icon>
+      </div>
+  </div>
+
+
+
+    <p style="margin-top: 2em;text-align: center;" >{{ recording ? 'Escuchando...' : 'Iniciar Reconocimiento' }}</p>
    
     <div style="padding: 1em;">
       <ion-textarea style="margin: 3m 0em;"  auto-grow="true" [(ngModel)]="recognizedText"></ion-textarea>
@@ -17,8 +25,54 @@
   </div>
 
 
-  <div *ngIf="results.length > 0">
+  <div *ngIf="step == 2">
     <h2 style="padding: 1em;">Resultados</h2>
+
+
+
+    <ion-card style="padding: 1em;" *ngIf="loading">
+      <ion-row>
+          <ion-col size="9">
+            <h2> <ion-skeleton-text [animated]="true" style="width: 140px"></ion-skeleton-text></h2>
+            <p class="capital"><ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text></p>
+          </ion-col>
+          <ion-col size="2">
+            <h2 style="text-align: right;">
+                  <ion-skeleton-text [animated]="true" style="width: 70px"></ion-skeleton-text>
+            </h2>
+          </ion-col>
+          </ion-row>
+          
+          
+          <h5><ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text></h5>
+          
+         
+          
+          <ion-chip >
+              <ion-skeleton-text [animated]="true" style="width: 30px"></ion-skeleton-text>
+          </ion-chip>
+          
+
+          
+          <h5><ion-skeleton-text [animated]="true" style="width: 50px"></ion-skeleton-text></h5>
+          
+          <ion-chip >
+                <ion-skeleton-text [animated]="true" style="width: 70px"></ion-skeleton-text>
+          </ion-chip>
+          
+         
+        
+          
+          <ion-row style="margin-top: 2em;">
+            <ion-col size="6">
+                  <ion-skeleton-text [animated]="true" style="width: 130px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+                <ion-skeleton-text [animated]="true" style="width: 130px"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+    </ion-card>
 
     <ion-card *ngFor="let result of results; let i = index" style="margin: 1em;padding:1em;">
         <ion-row>
@@ -124,12 +178,12 @@
 
   <ng-container *ngIf="step == 1">
     <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="results">
-      <ion-fab-button color="danger" (click)="goBack()">
+      <ion-fab-button color="danger" (click)="exit()">
         <ion-icon name="close"></ion-icon>
       </ion-fab-button>
     </ion-fab>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button [disabled]="recognizedText.length == 0" color="dark" (click)="next()">
+      <ion-fab-button [disabled]="recognizedText.length < 10" color="dark" (click)="next()">
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-fab-button>
     </ion-fab>
@@ -139,14 +193,16 @@
 
   
   <ng-container *ngIf="step == 2">
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="results.length == 0">
-      <ion-fab-button color="danger" (click)="exit()">
-        <ion-icon name="close"></ion-icon>
+
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="results.length == 0">
+      <ion-fab-button color="danger" (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
       </ion-fab-button>
     </ion-fab>
+
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
       <ion-fab-button [disabled]="results.length == 0 || itemsWarning" color="success" (click)="create()">
-        <ion-icon name="arrow-forward"></ion-icon>
+        <i class="fa-solid fa-check"></i>
       </ion-fab-button>
     </ion-fab>
   </ng-container>

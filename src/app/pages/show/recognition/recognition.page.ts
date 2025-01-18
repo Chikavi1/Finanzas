@@ -16,7 +16,7 @@ export class RecognitionPage {
   results: any = [];
 
   itemsWarning = false
-  step = 1;
+  step = 1  ;
 
   constructor(
     private openIaService: OpenaiService,
@@ -73,16 +73,20 @@ export class RecognitionPage {
   returnGoal(goal) {
     this.itemsWarning = true;
   }
+  loading = true;
 
   
   next() {
     this.step = 2;
-    this.showLoading()
-    this.openIaService.sendMessage(this.recognizedText).then((response: any) => {
-      console.log('Chat GPT response:', response);
-      console.log('response formatted:', response.choices[0].message.content);
-      this.results =  JSON.parse( response.choices[0].message.content );
-    });
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
+
+    // this.openIaService.sendMessage(this.recognizedText).then((response: any) => {
+    //   console.log('Chat GPT response:', response);
+    //   console.log('response formatted:', response.choices[0].message.content);
+    //   this.results =  JSON.parse( response.choices[0].message.content );
+    // });
 
   }
 
@@ -207,6 +211,16 @@ export class RecognitionPage {
 
   }
 
+  setRecording() {
+    if(this.recording) {
+      this.recording = false;
+     this.stopRecording();
+    } else {
+      this.startRecording();
+       this.recording = true;
+    }
+  }
+
   
   startRecording() {
     this.recording = true;
@@ -215,6 +229,11 @@ export class RecognitionPage {
       partialResults: true,
       language: 'es-ES',
     });
+  }
+
+  stopRecording() {
+    SpeechRecognition.stop();
+    this.recording = false;
   }
 
   goBack() {
