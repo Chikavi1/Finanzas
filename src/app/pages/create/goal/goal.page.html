@@ -20,16 +20,14 @@
 
     <p>Selecciona un tipo:</p>
     <div style="margin-top: 1em;" class="chip-container-horizontal">
-      <ion-chip [ngClass]="type == 'saving' ? 'active' : ''" (click)="setType('savings')">
+      <ion-chip [ngClass]="type == 'savings' ? 'active' : ''" (click)="setType('savings')">
         <i class="fa-solid fa-vault"></i> &nbsp; Ahorro</ion-chip>
   
-      <ion-chip [ngClass]="type == 'goal' ? 'active' : ''" (click)="setType('goals')">
+      <ion-chip [ngClass]="type == 'goals' ? 'active' : ''" (click)="setType('goals')">
         <i class="fa-solid fa-bullseye"></i>  &nbsp; Objetivo</ion-chip>
   
-      <ion-chip [ngClass]="type == 'investment' ? 'active' : ''" (click)="setType('investments')">
+      <ion-chip [ngClass]="type == 'investments' ? 'active' : ''" (click)="setType('investments')">
         <i class="fa-solid fa-money-bill-trend-up"></i> &nbsp; Inversion</ion-chip>
- 
-
     </div>
   
     <ion-item lines="none" style="margin-top: 1em;">

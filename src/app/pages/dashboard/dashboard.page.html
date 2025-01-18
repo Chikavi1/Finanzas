@@ -156,8 +156,11 @@
           </ion-col>
   
           <ion-col size="4" (click)="goToMovement(mov)">
-            <h2 style="color: seagreen;text-align: right;" *ngIf="mov.type == 'incomes'">${{ mov.amount | number }}</h2>
-            <h2 style="color: red;text-align: right;" *ngIf="mov.type == 'expenses'">${{ mov.amount | number }}</h2>
+            <h2 [ngStyle]="{
+                  color: mov.type === 'incomes' ? 'green' : mov.type === 'expenses' ? 'red' : 'gray',
+                  textAlign: 'right'
+                }">$ {{ mov.type === 'expenses' ? mov.amount * -1 : mov.amount }}
+                </h2>
           </ion-col>
 
           <ion-chip (click)="goToFilteredMovements(mov.method)">

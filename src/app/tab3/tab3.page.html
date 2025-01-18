@@ -3,14 +3,50 @@
 <ion-content [fullscreen]="true">
 
   <div style="padding: 1em;margin-top:3em">
-    <h2>Reportes</h2>
+    <ion-row>
+      <ion-col>
+        <h2>Reportes</h2>
+      </ion-col>
+      <ion-col style="text-align: right;">
+        <h2>Enero</h2>
+      </ion-col>
+    </ion-row>
     <ion-card style="padding: 1em;">
-      <h2>Esta quincena</h2>
-      <div style="text-align: center;">
-        <p>Tienes disponible </p>
-        <h2>$ 7, 200</h2>
+      <h2>Cantidades de este mes</h2>
+     
+
+      <div>
+        <p>Ingresos</p>
+        <h2 style="color:green;">$ 27, 200</h2>
+        <p>Gastos</p>
+        <h2 style="color: red;">$ 9, 200</h2>
+        <p>Deuda</p>
+        <h2 style="color:orangered">$ 3, 900</h2>
+        <p>Crecimiento</p>
+        <h2 style="color: blue;">$ 4, 700</h2>
       </div>
     </ion-card>
+
+      <ion-card style="padding:1em">
+        <h2>
+          Movimientos este mes
+        </h2>
+      
+        <div style="padding: 1em;">
+          <p>Movimientos de ingresos</p>
+          <h2 style="color:green;">19</h2>
+      
+          <p>Movimientos de gastos</p>
+          <h2 style="color:red">20</h2>
+      
+          <p>Movimientos de deuda</p>
+          <h2 style="color:orangered">15</h2>
+        
+          <p>Movimientos de Crecimiento</p>
+          <h2 style="color:blue">12</h2>
+        </div>
+      
+      </ion-card>
   
     <ion-card style="padding: 1em;">
       <h2>Este mes</h2>
@@ -22,33 +58,42 @@
 
     </ion-card>
 
-    <ion-card>
+    <ion-card style="padding: 1em;">
       <h2>Gastos</h2>
+      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+        [colors]="chartOptions.colors">
+      </apx-chart>
     </ion-card>
 
-    <ion-card>
-      <h2>Deudas </h2>
+    <ion-card style="padding: 1em;">
+      <h2>Deudas</h2>
+      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+        [colors]="chartOptions.colors">
+      </apx-chart>
     </ion-card>
 
-    <ion-card>
+    <ion-card style="padding: 1em;">
         <h2>Crecimiento </h2>
+
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+          [colors]="chartOptions.colors">
+        </apx-chart>
+
       <p>ahorro</p>
       <p>Objetivo</p>
       <p>Inversion</p>
     </ion-card>
 
-    <ion-card>
+    <ion-card style="padding: 1em;">
+
       <h2>Ingresos vs gastos</h2>
+      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+        [colors]="chartOptions.colors">
+      </apx-chart>
+
     </ion-card>
 
-    <ion-card>
-      total de transacciones
-
-      <p>transacciones de ingresos</p>
-      <p>transacciones de gastos</p>
-      <p>transacciones de Crecimiento</p>
-      <p>transacciones de deuda</p>
-    </ion-card>
+ 
 
   </div>
 

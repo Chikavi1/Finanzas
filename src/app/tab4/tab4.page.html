@@ -15,9 +15,9 @@
           <h2 class="capital">{{goal.name}}</h2>
           <p>{{goal.description}}</p>
           <ion-chip>
-            <ion-label *ngIf="goal.type == 'saving'">Ahorro</ion-label>
-            <ion-label *ngIf="goal.type == 'goal'">Objetivo</ion-label>
-            <ion-label *ngIf="goal.type == 'investment'">Inversión</ion-label>
+            <ion-label *ngIf="goal.type == 'savings'"> <i class="fa-solid fa-vault"></i> &nbsp; Ahorro</ion-label>
+            <ion-label *ngIf="goal.type == 'goals'"> <i class="fa-solid fa-bullseye"></i> &nbsp; Objetivo</ion-label>
+            <ion-label *ngIf="goal.type == 'investments'"> <i class="fa-solid fa-money-bill-trend-up"></i> &nbsp; Inversión</ion-label>
           </ion-chip>
         </ion-col>
         <ion-col size="3">
