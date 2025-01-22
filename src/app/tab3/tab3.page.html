@@ -51,8 +51,8 @@
     <ion-card style="padding: 1em;">
       <h2>Este mes</h2>
       <div id="chart">
-        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
-          [colors]="chartOptions.colors">
+        <apx-chart [series]="mainChart.series" [chart]="mainChart.chart" [labels]="mainChart.labels"
+          [colors]="mainChart.colors">
         </apx-chart>
       </div>
 
@@ -60,23 +60,23 @@
 
     <ion-card style="padding: 1em;">
       <h2>Gastos</h2>
-      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
-        [colors]="chartOptions.colors">
+      <apx-chart [series]="expensesChart.series" [chart]="expensesChart.chart" [labels]="expensesChart.labels"
+        [colors]="expensesChart.colors">
       </apx-chart>
     </ion-card>
 
     <ion-card style="padding: 1em;">
       <h2>Deudas</h2>
-      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
-        [colors]="chartOptions.colors">
+      <apx-chart [series]="debtsChart.series" [chart]="debtsChart.chart" [labels]="debtsChart.labels"
+        [colors]="debtsChart.colors">
       </apx-chart>
     </ion-card>
 
     <ion-card style="padding: 1em;">
         <h2>Crecimiento </h2>
 
-        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
-          [colors]="chartOptions.colors">
+        <apx-chart [series]="growthChart.series" [chart]="growthChart.chart" [labels]="growthChart.labels"
+          [colors]="growthChart.colors">
         </apx-chart>
 
       <p>ahorro</p>
@@ -87,8 +87,8 @@
     <ion-card style="padding: 1em;">
 
       <h2>Ingresos vs gastos</h2>
-      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
-        [colors]="chartOptions.colors">
+      <apx-chart [series]="incomesvsexpensesChart.series" [chart]="incomesvsexpensesChart.chart" [labels]="incomesvsexpensesChart.labels"
+        [colors]="incomesvsexpensesChart.colors">
       </apx-chart>
 
     </ion-card>

@@ -11,7 +11,7 @@ export class GoalPage implements OnInit {
 
   data;
   custom_items = false;
-  type = 'saving';
+  type = 'savings';
   name = '';
   amount = 0;
 

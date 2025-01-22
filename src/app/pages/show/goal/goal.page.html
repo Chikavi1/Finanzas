@@ -19,8 +19,13 @@
       <ion-row>
         <ion-col size="9">
           <h2>{{goal.name}}</h2>
-          <p>Finaliza el {{goal.end}}</p>
-          <p>60 mensualidades de pagos </p>
+          <div *ngIf="goal.end">
+            <p>Finaliza el {{goal.end }}</p>
+          </div>
+          
+          <div *ngIf="goal.amount_months">
+            <p>60 mensualidades de pagos</p>
+          </div>
         </ion-col>
         <ion-col size="3" style="text-align: right;">
           <h3>
@@ -34,9 +39,7 @@
     <ion-card style="padding: 1em;">
       <h4>Progreso</h4>
       <h1>{{ progress | number:'1.2-2'}} %</h1>
-        <p>{{ progress }}</p>
-       <ion-progress-bar color="success" [value]="progress*0.01"></ion-progress-bar> 
- 
+      <ion-progress-bar color="success" [value]="progress*0.01"></ion-progress-bar> 
     </ion-card>
   
  
@@ -56,11 +59,11 @@
       <div *ngIf="movements.length > 0">
         <ion-row  *ngFor="let movement of movements">
           <ion-col size="9">
-            <h2>{{movement.name}}</h2>
+            <h5>{{movement.name}}</h5>
             <p>{{movement.date | date}}</p>
           </ion-col>
           <ion-col size="3">
-            <p style="text-align: right;color: green;">{{movement.amount | number}}</p>
+            <h2 style="text-align: right;color: green;">$ {{movement.amount | number}}</h2>
           </ion-col>
         </ion-row>
       </div>
@@ -75,3 +78,4 @@
     Cerrar
   </ion-button>
 </ion-footer>
+

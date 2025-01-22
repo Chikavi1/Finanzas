@@ -51,9 +51,7 @@ export class DashboardPage implements OnInit {
 
   getMovements() {
   this.movements = JSON.parse(localStorage.getItem('movements')) || []; 
-  
   if (this.movements.length > 0) {
-  
     this.movements.forEach(element => {
       this.total +=  parseFloat( element.amount );
     });
@@ -66,14 +64,14 @@ export class DashboardPage implements OnInit {
     this.isFiltered = true
     this.movements = JSON.parse(localStorage.getItem('movements')) || '[]';
     this.movements.reverse();
-    if (type == 'expense') {
-      this.movements = this.movements.filter(movement => movement.type == 'expense');
-    } else if (type == 'income') {
-      this.movements = this.movements.filter(movement => movement.type == 'income');
-    } else if (type == 'debt') {
-      this.movements = this.movements.filter(movement => movement.type == 'debt');
-    } else if (type == 'growth') {
-      this.movements = this.movements.filter(movement => movement.type == 'growth');
+    if (type == 'expenses'){
+      this.movements = this.movements.filter(movement => movement.type == 'expenses');
+    } else if (type == 'incomes') {
+      this.movements = this.movements.filter(movement => movement.type == 'incomes');
+    } else if (type == 'debts') {
+      this.movements = this.movements.filter(movement => movement.type == 'debts');
+    } else if (type == 'growths') {
+      this.movements = this.movements.filter(movement => movement.type == 'growths');
     }
 
   }

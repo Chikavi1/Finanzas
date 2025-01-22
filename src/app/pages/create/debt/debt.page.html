@@ -18,7 +18,7 @@
       <ion-textarea rows="8"  class="custom-input" [(ngModel)]="description" placeholder="Agrega una descripción ">
   
       </ion-textarea>
-      <small>0/350</small>
+      <small>{{ description.length}}/350</small>
     </div>
     <ion-item lines="none" style="margin-top: 2em;">
       <ion-label position="fixed"><i class="fa-solid fa-dollar-sign"></i> Monto</ion-label>

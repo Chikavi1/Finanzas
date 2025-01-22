@@ -10,7 +10,7 @@ export class DebtPage implements OnInit {
 
   name = '';
   amount = 0;
-  description;
+  description = '';
 
   constructor(private modalCtrl: ModalController) { }
 

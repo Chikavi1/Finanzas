@@ -2,17 +2,17 @@
     <div style="padding: 1em;margin-top:3em">
       <h2>Crecimiento Financiero </h2>
 
-      <ion-chip  (click)="filteredGoals('savings')"> <i class="fa-solid fa-vault"></i> &nbsp; Ahorro </ion-chip>
-      <ion-chip  (click)="filteredGoals('goals')" > <i class="fa-solid fa-bullseye"></i> &nbsp; Objetivo </ion-chip>
-      <ion-chip  (click)="filteredGoals('investments')" > <i class="fa-solid fa-money-bill-trend-up"></i> &nbsp; Inversión </ion-chip>
-       <ion-chip *ngIf="isFiltered" (click)="clearFilter()">
-      <i class="fa-solid fa-xmark"></i> &nbsp; Quitar filtro
-      </ion-chip>
+      <div class="chip-container-horizontal" >
+        <ion-chip  [ngClass]="type == 'savings' ? 'active' : ''"  (click)="filteredGoals('savings')"> <i class="fa-solid fa-vault"></i> &nbsp; Ahorro </ion-chip>
+        <ion-chip  [ngClass]="type == 'goals' ? 'active' : ''" (click)="filteredGoals('goals')" > <i class="fa-solid fa-bullseye"></i> &nbsp; Objetivo </ion-chip>
+        <ion-chip  [ngClass]="type == 'investments' ? 'active' : ''"  (click)="filteredGoals('investments')" > <i class="fa-solid fa-money-bill-trend-up"></i> &nbsp; Inversión </ion-chip>
+        <ion-chip  color="danger" *ngIf="isFiltered" (click)="clearFilter()"><i class="fa-solid fa-xmark"></i> &nbsp; Quitar filtro</ion-chip>
+      </div>
 
 
       <ion-row  *ngFor="let goal of goals" (click)="goToGoal(goal)">
-        <ion-col size="9">
-          <h2 class="capital">{{goal.name}}</h2>
+        <ion-col size="8">
+          <h4 class="capital">{{goal.name}}</h4>
           <p>{{goal.description}}</p>
           <ion-chip>
             <ion-label *ngIf="goal.type == 'savings'"> <i class="fa-solid fa-vault"></i> &nbsp; Ahorro</ion-label>
@@ -20,8 +20,8 @@
             <ion-label *ngIf="goal.type == 'investments'"> <i class="fa-solid fa-money-bill-trend-up"></i> &nbsp; Inversión</ion-label>
           </ion-chip>
         </ion-col>
-        <ion-col size="3">
-          <h2 style="text-align: right;">$ {{goal.amount | number}}</h2>
+        <ion-col size="4">
+          <h4 style="text-align: right;">$ {{goal.amount | number}}</h4>
         </ion-col>
       </ion-row>
 

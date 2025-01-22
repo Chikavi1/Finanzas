@@ -13,7 +13,7 @@ export class CardPage implements OnInit {
   last4= '';
   balance = 0;
   limit = 0;
-  color;
+  color = '#006b44';
   credit_spent = 0;
 
   data;
